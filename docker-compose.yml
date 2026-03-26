@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  php:
+    build:
+      context: ./.docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+      - ./web/app/uploads:/var/www/html/web/app/uploads
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: "1"
+    depends_on:
+      - db
+    restart: unless-stopped
+    command: >
+      sh -c "chown -R www-data:www-data /var/www/html/web/app/uploads && docker-php-entrypoint php-fpm"
+
+  nginx:
+    image: nginx:1.25
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./web/app/uploads:/var/www/html/web/app/uploads
+      - ./.docker/nginx/bedrock.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10.6
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wppass
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+  composer:
+    image: composer:2
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: [ "composer" ]
+    # Usage: docker compose run --rm composer install
+
+  wpcli:
+    image: wordpress:cli-2.12-php8.4
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: [ "wp" ]
+    # Usage: docker compose run --rm wpcli core install ...
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # UI
+    restart: unless-stopped
+
+volumes:
+  db_data:

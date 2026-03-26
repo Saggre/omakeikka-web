@@ -1,0 +1,16 @@
+{
+  "name": "omakeikka-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd web/app/themes/omakeikka-theme && npm run build:css && cd -",
+    "docker:up": "docker compose up -d",
+    "docker:stop": "docker compose stop",
+    "docker:rebuild": "docker compose build --no-cache && npm run docker:up",
+    "docker:ssh": "docker compose exec -u root php bash",
+    "docker:ssh:nginx": "docker compose exec -u root nginx sh"
+  },
+  "author": "",
+  "license": "proprietary"
+}

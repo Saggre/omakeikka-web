@@ -1,0 +1,99 @@
+{
+  "name": "saggre/omakeikka-web",
+  "type": "project",
+  "license": "proprietary",
+  "description": "WordPress boilerplate with Composer, easier configuration, and an improved folder structure",
+  "homepage": "https://roots.io/bedrock/",
+  "authors": [
+    {
+      "name": "Sakri Koskimies",
+      "email": "sakri.koskimies@hotmail.com"
+    }
+  ],
+  "keywords": [
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    },
+    {
+      "type": "composer",
+      "url": "https://wp-languages.github.io"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "composer/installers": "^2.2",
+    "koodimonni-language/fi": "^6.8",
+    "oscarotero/env": "^2.1",
+    "roots/bedrock-autoloader": "^1.0",
+    "roots/bedrock-disallow-indexing": "^2.0",
+    "roots/wordpress": "6.8.2",
+    "roots/wp-config": "1.0.0",
+    "vlucas/phpdotenv": "^5.5",
+    "wpackagist-plugin/altcha-spam-protection": "^1.26",
+    "wpackagist-plugin/complianz-gdpr": "^7.4",
+    "wpackagist-plugin/duplicate-post": "^4.5",
+    "wpackagist-plugin/fluentform": "^6.1",
+    "wpackagist-plugin/litespeed-cache": "^7.4",
+    "wpackagist-plugin/loco-translate": "^2.8",
+    "wpackagist-plugin/redirection": "^5.7",
+    "wpackagist-plugin/password-protected": "^2.7",
+    "wpackagist-plugin/seo-by-rank-math": "^1.0",
+    "wpackagist-plugin/simple-history": "^5.16",
+    "wpackagist-plugin/wordpress-seo": "^25.8",
+    "wpackagist-plugin/wp-fail2ban": "^5.4",
+    "wpackagist-plugin/wp-mail-catcher": "^2.1",
+    "wpackagist-plugin/wp-mail-smtp": "^4.6"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "laravel/pint": "^1.18"
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "composer/installers": true,
+      "roots/wordpress-core-installer": true,
+      "koodimonni/composer-dropin-installer": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "installer-paths": {
+      "web/app/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "web/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "web/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    },
+    "dropin-paths": {
+      "web/app/languages/plugins/": [
+        "vendor:koodimonni-plugin-language"
+      ],
+      "web/app/languages/themes/": [
+        "vendor:koodimonni-theme-language"
+      ],
+      "web/app/languages/": [
+        "vendor:koodimonni-language"
+      ]
+    },
+    "wordpress-install-dir": "web/wp"
+  },
+  "scripts": {
+    "lint": "pint --test",
+    "lint:fix": "pint"
+  }
+}

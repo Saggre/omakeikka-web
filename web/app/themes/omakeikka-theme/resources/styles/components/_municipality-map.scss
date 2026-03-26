@@ -1,0 +1,35 @@
+$map-bg: mix($secondary, #fff, 14%);
+
+.map-section {
+  background: #f3f4f6; //$map-bg;
+}
+
+.municipality-map {
+  filter: drop-shadow(2px 2px 38px rgba(0, 0, 0, 0.12));
+  fill: none;
+  stroke: #051d3f;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  visibility: hidden;
+
+  &--selected {
+    visibility: visible;
+  }
+
+  &__container {
+    overflow: hidden;
+    height: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  polygon:not(.municipality-map__municipality--selected) {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      filter: brightness(70%);
+    }
+  }
+}

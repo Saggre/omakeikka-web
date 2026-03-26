@@ -1,0 +1,40 @@
+{
+  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "useDefineForClassFields": true,
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "dom.iterable"
+    ],
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": [
+        "./resources/scripts/*"
+      ],
+      "@data/*": [
+        "./resources/data/*"
+      ]
+    },
+    "baseUrl": ".",
+  },
+  "include": [
+    "./resources/scripts/**/*.ts",
+    "./resources/scripts/**/*.d.ts",
+    "./resources/scripts/**/*.tsx",
+    "./resources/scripts/**/*.vue"
+  ],
+  "typeRoots": [
+    "./resources/scripts/data.d.ts"
+  ]
+}

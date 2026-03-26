@@ -1,0 +1,22 @@
+# IDE
+.idea
+
+# Server / Application
+**/*.bk
+web/wp/*
+web/app/plugins/*
+web/app/mu-plugins/*
+web/app/themes/*
+web/app/uploads/*
+web/app/upgrade/*
+web/app/languages/*
+
+# Composer
+vendor/
+!web/app/themes/omakeikka-theme
+!web/app/mu-plugins/load.php
+!web/app/mu-plugins/post-shortcodes.php
+
+# WordPress
+wp/
+.env
