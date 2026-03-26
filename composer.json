@@ -42,12 +42,11 @@
     "wpackagist-plugin/fluentform": "^6.1",
     "wpackagist-plugin/litespeed-cache": "^7.4",
     "wpackagist-plugin/loco-translate": "^2.8",
-    "wpackagist-plugin/redirection": "^5.7",
     "wpackagist-plugin/password-protected": "^2.7",
+    "wpackagist-plugin/redirection": "^5.7",
     "wpackagist-plugin/seo-by-rank-math": "^1.0",
     "wpackagist-plugin/simple-history": "^5.16",
     "wpackagist-plugin/wordpress-seo": "^25.8",
-    "wpackagist-plugin/wp-fail2ban": "^5.4",
     "wpackagist-plugin/wp-mail-catcher": "^2.1",
     "wpackagist-plugin/wp-mail-smtp": "^4.6"
   },

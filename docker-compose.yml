@@ -8,13 +8,14 @@ services:
     volumes:
       - ./:/var/www/html
       - ./web/app/uploads:/var/www/html/web/app/uploads
+      - ./.docker/php/error-reporting.ini:/usr/local/etc/php/conf.d/error-reporting.ini:ro
     environment:
       COMPOSER_ALLOW_SUPERUSER: "1"
     depends_on:
       - db
     restart: unless-stopped
     command: >
-      sh -c "chown -R www-data:www-data /var/www/html/web/app/uploads && docker-php-entrypoint php-fpm"
+      sh -c "mkdir -p /var/www/html/web/app/cache/acorn && chown -R www-data:www-data /var/www/html/web/app/uploads /var/www/html/web/app/cache && docker-php-entrypoint php-fpm"
 
   nginx:
     image: nginx:1.25
