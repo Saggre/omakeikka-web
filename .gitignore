@@ -11,6 +11,7 @@ web/app/themes/*
 web/app/uploads/*
 web/app/upgrade/*
 web/app/languages/*
+web/app/cache/*
 
 # Composer
 vendor/
