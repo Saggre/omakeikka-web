@@ -9,7 +9,8 @@
     "docker:stop": "docker compose stop",
     "docker:rebuild": "docker compose build --no-cache && npm run docker:up",
     "docker:ssh": "docker compose exec -u root php bash",
-    "docker:ssh:nginx": "docker compose exec -u root nginx sh"
+    "docker:ssh:nginx": "docker compose exec -u root nginx sh",
+    "wp": "docker compose run --rm wpcli"
   },
   "author": "",
   "license": "proprietary"
