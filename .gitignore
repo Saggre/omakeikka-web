@@ -1,6 +1,7 @@
 # IDE
 .idea
 *.sql
+prompts/
 
 # Server / Application
 **/*.bk
