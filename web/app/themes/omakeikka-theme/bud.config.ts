@@ -29,7 +29,7 @@ export default async (app: Bud) => {
    *
    * @see {@link https://bud.js.org/docs/bud.setPublicPath}
    */
-  app.setPublicPath('/wp-content/themes/omakeikka-wp-theme/public/');
+  app.setPublicPath('/app/themes/omakeikka-theme/public/');
 
   /**
    * Development server settings

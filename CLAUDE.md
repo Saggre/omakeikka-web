@@ -115,4 +115,20 @@ docker compose run --rm wpcli <command>
 
 ### Environment
 
-Local dev URL: `http://localhost:8080`. Configure in `.env` (`WP_HOME`). Copy `.env.example` to `.env` before first run.
+Local dev URL: `https://omakeikka.local.dev`. Configure in `.env` (`WP_HOME`). Copy `.env.example` to `.env` before first run. The domain must be in `/etc/hosts` pointing to `127.0.0.1`.
+
+Nginx listens on port 80 (redirects to HTTPS) and 443. The dev server proxy in `bud.config.ts` proxies `http://omakeikka.fi` (production) and runs the HMR server on `http://localhost:3030`.
+
+### Troubleshooting
+
+**Blank white page (empty 200 response):** The active theme slug in the database may not match the theme directory name. Check and fix with:
+
+```bash
+docker compose run --rm wpcli option get template --path=/var/www/html/web/wp
+docker compose run --rm wpcli option get stylesheet --path=/var/www/html/web/wp
+# If they don't match the directory name under web/app/themes/:
+docker compose run --rm wpcli option update template omakeikka-theme --path=/var/www/html/web/wp
+docker compose run --rm wpcli option update stylesheet omakeikka-theme --path=/var/www/html/web/wp
+```
+
+**Bud public path for Bedrock:** Must use `/app/themes/<theme-slug>/public/` (not `/wp-content/...`), since Bedrock maps `wp-content` to `app`.
