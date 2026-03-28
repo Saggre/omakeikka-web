@@ -132,3 +132,38 @@ docker compose run --rm wpcli option update stylesheet omakeikka-theme --path=/v
 ```
 
 **Bud public path for Bedrock:** Must use `/app/themes/<theme-slug>/public/` (not `/wp-content/...`), since Bedrock maps `wp-content` to `app`.
+
+## Occupation CPT
+
+The `occupation` CPT and `municipality` taxonomy are registered in `web/app/mu-plugins/occupation-cpt.php` (whitelisted in `.gitignore`). Both use the rewrite slug `ammatit`.
+
+### URL structure
+
+- `/ammatit/` - CPT archive (hub page)
+- `/ammatit/putkiasentajat/` - single occupation post
+- `/ammatit/espoo/` - municipality taxonomy archive
+
+### Known rewrite rule conflict
+
+WordPress auto-generates the CPT rule `ammatit/([^/]+)` before the taxonomy rule, so municipality archive URLs (`/ammatit/espoo/`) 404 without an explicit fix. The fix is `add_rewrite_rule()` with `'top'` priority for municipality slugs, registered on the `init` hook at priority 11 (after the CPT registration at 10). Flush rewrite rules after any change.
+
+### Rank Math and JSON-LD
+
+Do **not** output `schema.org` structured data via a `<script type="application/ld+json">` tag in Blade templates - Rank Math strips body-level JSON-LD. Inject custom schemas via the `rank_math/json_ld` filter from a PHP hook instead.
+
+### Finnish grammar in occupation content
+
+Occupation post titles are stored in plural nominative form (e.g. "Putkiasentajat"). CTAs and headings require other grammatical cases that cannot be derived programmatically. Store them as post meta:
+- `cta_singular` - singular nominative ("putkiasentaja") for "Oletko X?" CTAs
+- `cta_partitive` - plural partitive ("putkiasentajia") for "Etsitkö X?" CTAs
+- `municipality_locative` - inessive case per city ("Helsingissä") for term meta
+
+### Seed script
+
+Mock data for local dev: `scripts/seed-occupations.php`. Run with:
+
+```bash
+docker compose run --rm wpcli --allow-root eval-file scripts/seed-occupations.php
+```
+
+Idempotent - skips existing posts and terms. After seeding, flush rewrite rules.
