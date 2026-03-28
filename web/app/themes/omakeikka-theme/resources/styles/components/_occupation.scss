@@ -1,0 +1,54 @@
+.occupation-hero {
+  background-color: $dark;
+  // Background image (dots pattern) is set inline in the Blade template so
+  // webpack does not try to resolve the uploads URL at build time.
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba($dark, 0.88) 50%, rgba($dark, 0.55));
+  }
+
+  // Force white on all headings/text inside the hero - Bootstrap's heading
+  // color variable would otherwise bleed through text-white inheritance.
+  h1, h2, h3, p, li {
+    color: #fff;
+  }
+
+  &__title {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  &__card {
+    background: #fff;
+
+    h2, p {
+      color: $dark;
+    }
+  }
+}
+
+.occupation-steps {
+  &__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: $primary;
+    color: $dark;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+}
+
+.occupation-trust {
+  &__stat {
+    background: var(--bs-body-bg);
+  }
+}

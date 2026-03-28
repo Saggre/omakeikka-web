@@ -56,17 +56,54 @@
 
 // 8. Add additional custom code here
 
+// btn-primary: dark text on brand green, matching the omakeikka app.
+// Declared here (after Bootstrap mixins are loaded) so the button-variant
+// mixin can compute hover/active shades correctly.
+.btn-primary {
+  @include button-variant(
+    $primary,
+    $primary,
+    $dark,
+    $hover-border: shade-color($primary, $btn-hover-border-shade-amount),
+    $active-background: shade-color($primary, $btn-active-bg-shade-amount),
+    $active-border: shade-color($primary, $btn-active-border-shade-amount)
+  );
+}
+
+// Elementor's global kit injects `a { color: #4473C5 }` which overrides button
+// text color even after Bootstrap sets it. Beat it with a scoped rule.
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-primary:focus,
+a.btn-primary:active {
+  color: $dark !important;
+}
+
 .card, .accordion-item {
-  border-radius: 0.475rem;
-  border: 1px solid #ededed;
+  border-radius: var(--bs-border-radius-lg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card-header, .accordion-item .accordion-header {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.card-footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 0;
 }
 
 .bg-light {
-  background: #f3f4f6 !important;
+  background: var(--bs-secondary-bg) !important;
+}
+
+.bg-card-footer {
+  background: var(--bs-card-cap-bg);
 }
 
 .btn {
-  border-radius: 30px;
+  border-radius: $btn-border-radius;
   padding: 13px 30px;
   font-size: 18px;
   font-weight: 400;

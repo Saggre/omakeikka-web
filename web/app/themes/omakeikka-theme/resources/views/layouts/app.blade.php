@@ -4,6 +4,8 @@
 
 @include('sections.header')
 
+  @include('partials.breadcrumb')
+
   <main id="main" class="main">
     @yield('content')
   </main>
