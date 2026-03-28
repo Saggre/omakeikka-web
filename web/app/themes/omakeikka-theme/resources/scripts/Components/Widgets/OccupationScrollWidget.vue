@@ -24,17 +24,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getOccupations } from '@/api/occupations';
 
 export default defineComponent({
-  components: {
-
+  props: {
+    occupations: {
+      type: Object as () => Record<string, string>,
+      default: () => ({}),
+    },
   },
   data() {
     return {
       totalDelay: 110,
       scrollWidth: 14000,
-      occupations: {},
     };
   },
   computed: {
@@ -50,15 +51,6 @@ export default defineComponent({
     scrollWidthWithUnits() {
       return `${this.scrollWidth}px`;
     },
-  },
-  watch: {
-
-  },
-  async mounted() {
-    this.occupations = await getOccupations();
-  },
-  methods: {
-
   },
 });
 </script>

@@ -20,6 +20,7 @@ vendor/
 !web/app/plugins/elementor-pro
 !web/app/mu-plugins/load.php
 !web/app/mu-plugins/post-shortcodes.php
+!web/app/mu-plugins/occupation-cpt.php
 
 # WordPress
 wp/
