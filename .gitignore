@@ -17,6 +17,7 @@ web/app/cache/*
 # Composer
 vendor/
 !web/app/themes/omakeikka-theme
+!web/app/plugins/elementor-pro
 !web/app/mu-plugins/load.php
 !web/app/mu-plugins/post-shortcodes.php
 

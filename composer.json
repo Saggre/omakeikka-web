@@ -39,6 +39,7 @@
     "wpackagist-plugin/altcha-spam-protection": "^1.26",
     "wpackagist-plugin/complianz-gdpr": "^7.4",
     "wpackagist-plugin/duplicate-post": "^4.5",
+    "wpackagist-plugin/elementor": "^3.35",
     "wpackagist-plugin/fluentform": "^6.1",
     "wpackagist-plugin/litespeed-cache": "^7.4",
     "wpackagist-plugin/loco-translate": "^2.8",
