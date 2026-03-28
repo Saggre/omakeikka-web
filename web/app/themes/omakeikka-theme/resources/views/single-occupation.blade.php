@@ -50,7 +50,7 @@
             </a>
             <hr class="my-3">
             <p class="text-muted small text-center mb-2">{{ __('Oletko ammattilainen?', 'omakeikka-wp-theme') }}</p>
-            <a href="https://app.omakeikka.fi/register" class="btn btn-outline-primary w-100">
+            <a href="https://app.omakeikka.fi/register" class="btn btn-outline-primary text-dark w-100">
               {{ __('Luo oma profiili', 'omakeikka-wp-theme') }}
             </a>
           </div>
@@ -91,7 +91,7 @@
   @if(get_the_content())
     <section class="occupation-content py-5">
       <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
           <div class="col-lg-8">
             {!! apply_filters('the_content', get_the_content()) !!}
           </div>
@@ -103,9 +103,9 @@
   {{-- Mid-page CTA --}}
   <section class="occupation-cta py-5 bg-dark text-white text-center">
     <div class="container">
-      <h2 class="mb-2">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}</h2>
+      <h2 class="mb-2 text-white">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}</h2>
       <p class="lead mb-4 text-white">{{ __('Rekisteröi tarve omakeikassa ja vastaanota tarjouksia.', 'omakeikka-wp-theme') }}</p>
-      <a href="https://app.omakeikka.fi/employer/register" class="btn btn-light btn-lg">
+      <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary btn-lg">
         {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
       </a>
     </div>
