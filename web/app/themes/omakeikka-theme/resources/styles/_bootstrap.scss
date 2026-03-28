@@ -56,6 +56,12 @@
 
 // 8. Add additional custom code here
 
+// Expose the content width as a CSS custom property so Blade templates and
+// inline styles can reference it without hardcoding the pixel value.
+:root {
+  --site-content-width: #{$content-width};
+}
+
 // btn-primary: dark text on brand green, matching the omakeikka app.
 // Declared here (after Bootstrap mixins are loaded) so the button-variant
 // mixin can compute hover/active shades correctly.

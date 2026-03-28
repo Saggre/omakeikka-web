@@ -52,8 +52,3 @@
     background: var(--bs-body-bg);
   }
 }
-
-// Match Elementor's boxed section width so the breadcrumb aligns with page content.
-.site-breadcrumb .container {
-  max-width: 1140px;
-}

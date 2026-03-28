@@ -26,3 +26,16 @@ $border-radius-lg: 0.75rem;
 
 // Buttons
 $btn-border-radius: 30px;
+
+// Layout - single source of truth for content width.
+// Must match Elementor's boxed section max-width (set in Elementor > Site Settings > Layout).
+// All Bootstrap .container instances and theme-generated content use this value.
+$content-width: 1140px;
+
+$container-max-widths: (
+  sm:  540px,
+  md:  720px,
+  lg:  960px,
+  xl:  $content-width,
+  xxl: $content-width,
+);

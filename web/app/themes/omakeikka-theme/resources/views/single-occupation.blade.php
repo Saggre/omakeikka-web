@@ -32,7 +32,7 @@
             </li>
             <li class="d-flex align-items-center gap-2">
               <span class="occupation-steps__number">2</span>
-              {{ __('Löydä yhteensopivat mahdollisuudet', 'omakeikka-wp-theme') }}
+              {{ __('Löydä sinulle sopivat mahdollisuudet', 'omakeikka-wp-theme') }}
             </li>
             <li class="d-flex align-items-center gap-2">
               <span class="occupation-steps__number">3</span>
