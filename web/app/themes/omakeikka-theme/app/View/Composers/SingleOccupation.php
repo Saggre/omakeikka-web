@@ -25,8 +25,15 @@ class SingleOccupation extends Composer
         $post_id   = get_queried_object_id();
         $isco_code = (string) get_post_meta( $post_id, 'isco_code', true );
 
+        $cta_singular  = (string) get_post_meta( $post_id, 'cta_singular', true );
+        $cta_partitive = (string) get_post_meta( $post_id, 'cta_partitive', true );
+        $alt_titles    = $this->alt_titles( $post_id );
+
         return array(
             'isco_code'            => $isco_code,
+            'cta_singular'         => $cta_singular ?: mb_strtolower( get_the_title() ),
+            'cta_partitive'        => $cta_partitive ?: mb_strtolower( get_the_title() ),
+            'alt_titles'           => $alt_titles,
             'related_occupations'  => $this->related_occupations( $isco_code, $post_id ),
             'municipality_links'   => $this->municipality_links( $isco_code ),
             'json_ld'              => $this->json_ld( $post_id, $isco_code ),
@@ -75,6 +82,24 @@ class SingleOccupation extends Composer
         return array_values( array_filter( $cached, function ( $item ) use ( $post_id ) {
             return $item['id'] !== $post_id;
         } ) );
+    }
+
+    /**
+     * Return alternative plural titles stored as JSON in post meta.
+     *
+     * @param int $post_id
+     * @return array
+     */
+    private function alt_titles( int $post_id ): array {
+        $raw = get_post_meta( $post_id, 'alt_titles', true );
+
+        if ( ! $raw ) {
+            return array();
+        }
+
+        $decoded = json_decode( $raw, true );
+
+        return is_array( $decoded ) ? $decoded : array();
     }
 
     /**

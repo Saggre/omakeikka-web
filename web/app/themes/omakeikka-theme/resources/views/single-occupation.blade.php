@@ -20,8 +20,13 @@
 
         <div class="col-lg-7 text-white">
           <h1 class="occupation-hero__title display-5 fw-bold">
-            {{ sprintf(__('Tarvitsetko %s?', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}
+            {{ sprintf(__('Tarvitsetko %s?', 'omakeikka-wp-theme'), $cta_singular) }}
           </h1>
+          @if(!empty($alt_titles))
+            <p class="occupation-hero__alt-titles small text-white-50 mt-1 mb-0">
+              {{ __('Myös:', 'omakeikka-wp-theme') }} {{ implode(', ', array_map('mb_strtolower', $alt_titles)) }}
+            </p>
+          @endif
           @if(get_the_excerpt())
             <p class="occupation-hero__intro lead mt-3">{{ get_the_excerpt() }}</p>
           @endif
@@ -43,7 +48,7 @@
 
         <div class="col-lg-5">
           <div class="occupation-hero__card card shadow-lg border-0 p-4">
-            <h2 class="h5 mb-1">{{ sprintf(__('Etsitkö %s?', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}</h2>
+            <h2 class="h5 mb-1">{{ sprintf(__('Etsitkö %s?', 'omakeikka-wp-theme'), $cta_partitive) }}</h2>
             <p class="text-muted small mb-3">{{ __('Rekisteröidy työnantajana ja löydä sopivat tekijät.', 'omakeikka-wp-theme') }}</p>
             <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary w-100">
               {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
@@ -109,7 +114,7 @@
   {{-- Mid-page CTA --}}
   <section class="occupation-cta py-5 bg-dark text-white text-center">
     <div class="container">
-      <h2 class="mb-2 text-white">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}</h2>
+      <h2 class="mb-2 text-white">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-wp-theme'), $cta_singular) }}</h2>
       <p class="lead mb-4 text-white">{{ __('Rekisteröi tarve omakeikassa ja vastaanota tarjouksia.', 'omakeikka-wp-theme') }}</p>
       <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary btn-lg">
         {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
@@ -140,7 +145,6 @@
   @endif
 
   {{-- Cities with registered professionals --}}
-  {{-- TODO Phase 5: replace $municipality_links city names with live API user location data --}}
   @if(!empty($municipality_links))
     <section class="occupation-municipalities py-5">
       <div class="container">
@@ -148,7 +152,7 @@
           {{ sprintf(__('%s paikkakunnittain', 'omakeikka-wp-theme'), get_the_title()) }}
         </h2>
         <p class="text-muted small mb-3">
-          {{ sprintf(__('Omakeikassa on rekisteröityneitä %s seuraavilla paikkakunnilla:', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}
+          {{ sprintf(__('Omakeikassa on rekisteröityneitä %s seuraavilla paikkakunnilla:', 'omakeikka-wp-theme'), $cta_partitive) }}
         </p>
         <ul class="list-unstyled d-flex flex-wrap gap-2">
           @foreach($municipality_links as $link)
