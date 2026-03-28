@@ -60,27 +60,33 @@
     </div>
   </section>
 
-  {{-- Trust strip - Phase 5: replace dashes with live API stats --}}
+  {{-- Trust strip --}}
+  {{-- Employee count: Phase 5 - replace placeholder with live API count --}}
   <section class="occupation-trust py-4 border-bottom">
     <div class="container">
-      <p class="text-muted small text-center mb-3">{{ __('Omakeikassa on viimeisten 12 kuukauden aikana:', 'omakeikka-wp-theme') }}</p>
       <div class="row g-3 text-center">
-        <div class="col-4">
-          <div class="occupation-trust__stat p-3 rounded border">
+        <div class="col-6 col-md-3">
+          <div class="occupation-trust__stat p-3 rounded border h-100">
             <div class="fw-bold fs-5">—</div>
-            <div class="text-muted small">{{ __('profiilia', 'omakeikka-wp-theme') }}</div>
+            <div class="text-muted small">{{ __('rekisteröitynyttä eläkeläistä', 'omakeikka-wp-theme') }}</div>
           </div>
         </div>
-        <div class="col-4">
-          <div class="occupation-trust__stat p-3 rounded border">
-            <div class="fw-bold fs-5">—</div>
-            <div class="text-muted small">{{ __('arviointia', 'omakeikka-wp-theme') }}</div>
+        <div class="col-6 col-md-3">
+          <div class="occupation-trust__stat p-3 rounded border h-100">
+            <div class="fw-bold fs-5">{{ wp_count_terms('municipality') }}</div>
+            <div class="text-muted small">{{ __('kuntaa', 'omakeikka-wp-theme') }}</div>
           </div>
         </div>
-        <div class="col-4">
-          <div class="occupation-trust__stat p-3 rounded border">
-            <div class="fw-bold fs-5">—</div>
-            <div class="text-muted small">{{ __('keikkaa', 'omakeikka-wp-theme') }}</div>
+        <div class="col-6 col-md-3">
+          <div class="occupation-trust__stat p-3 rounded border h-100">
+            <div class="fw-bold fs-5">{{ __('1 kk', 'omakeikka-wp-theme') }}</div>
+            <div class="text-muted small">{{ __('ilmainen kokeilu työnantajille', 'omakeikka-wp-theme') }}</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="occupation-trust__stat p-3 rounded border h-100">
+            <div class="fw-bold fs-5">{{ __('Maksuton', 'omakeikka-wp-theme') }}</div>
+            <div class="text-muted small">{{ __('rekisteröityminen eläkeläisille', 'omakeikka-wp-theme') }}</div>
           </div>
         </div>
       </div>
