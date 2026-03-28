@@ -139,19 +139,21 @@
     </section>
   @endif
 
-  {{-- City directory --}}
+  {{-- Cities with registered professionals --}}
+  {{-- TODO Phase 5: replace $municipality_links city names with live API user location data --}}
   @if(!empty($municipality_links))
     <section class="occupation-municipalities py-5">
       <div class="container">
-        <h2 class="h4 mb-3">
-          {{ sprintf(__('Löydä %s läheltäsi', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}
+        <h2 class="h4 mb-1">
+          {{ sprintf(__('%s paikkakunnittain', 'omakeikka-wp-theme'), get_the_title()) }}
         </h2>
+        <p class="text-muted small mb-3">
+          {{ sprintf(__('Omakeikassa on rekisteröityneitä %s seuraavilla paikkakunnilla:', 'omakeikka-wp-theme'), mb_strtolower(get_the_title())) }}
+        </p>
         <ul class="list-unstyled d-flex flex-wrap gap-2">
           @foreach($municipality_links as $link)
             <li>
-              <a href="{{ $link['url'] }}" class="btn btn-primary btn-sm">
-                {{ $link['name'] }}
-              </a>
+              <span class="badge bg-secondary fs-6 fw-normal">{{ $link['name'] }}</span>
             </li>
           @endforeach
         </ul>
