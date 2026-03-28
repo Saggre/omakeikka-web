@@ -28,7 +28,7 @@ class SingleOccupation extends Composer
         return array(
             'isco_code'            => $isco_code,
             'related_occupations'  => $this->related_occupations( $isco_code, $post_id ),
-            'municipality_links'   => $this->municipality_links( $post_id ),
+            'municipality_links'   => $this->municipality_links( $isco_code ),
             'json_ld'              => $this->json_ld( $post_id, $isco_code ),
         );
     }
@@ -78,29 +78,43 @@ class SingleOccupation extends Composer
     }
 
     /**
-     * Return municipality taxonomy archive links for municipalities assigned to this post.
+     * Return municipalities that have at least one registered employee with this occupation,
+     * fetched from the omakeikka app API and cached for one hour.
      *
-     * @param int $post_id
+     * @param string $isco_code
      * @return array
      */
-    private function municipality_links( int $post_id ): array {
-        $terms = get_the_terms( $post_id, 'municipality' );
-
-        if ( ! $terms || is_wp_error( $terms ) ) {
+    private function municipality_links( string $isco_code ): array {
+        if ( '' === $isco_code ) {
             return array();
         }
 
-        $links = array();
-        foreach ( $terms as $term ) {
-            $url = get_term_link( $term );
-            if ( is_wp_error( $url ) ) {
-                continue;
-            }
-            $links[] = array(
-                'name' => $term->name,
-                'url'  => $url,
-            );
+        $transient_key = 'occupation_municipalities_' . $isco_code;
+        $cached        = get_transient( $transient_key );
+
+        if ( false !== $cached ) {
+            return $cached;
         }
+
+        $url      = 'https://app.omakeikka.fi/api/occupations/' . rawurlencode( $isco_code ) . '/municipalities';
+        $response = wp_remote_get( $url, array( 'timeout' => 5 ) );
+
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+            return array();
+        }
+
+        $body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+        if ( ! isset( $body['municipalities'] ) || ! is_array( $body['municipalities'] ) ) {
+            return array();
+        }
+
+        $links = array_map(
+            fn( $item ) => array( 'name' => $item['title'] ),
+            $body['municipalities']
+        );
+
+        set_transient( $transient_key, $links, HOUR_IN_SECONDS );
 
         return $links;
     }

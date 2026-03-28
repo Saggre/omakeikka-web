@@ -67,13 +67,13 @@
       <div class="row g-3 text-center">
         <div class="col-6 col-md-3">
           <div class="occupation-trust__stat p-3 rounded border h-100">
-            <div class="fw-bold fs-5">—</div>
-            <div class="text-muted small">{{ __('rekisteröitynyttä eläkeläistä', 'omakeikka-wp-theme') }}</div>
+            <div class="fw-bold fs-5">{{ __('Tuhansia', 'omakeikka-wp-theme') }}</div>
+            <div class="text-muted small">{{ __('rekisteröityneitä eläkeläistä', 'omakeikka-wp-theme') }}</div>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="occupation-trust__stat p-3 rounded border h-100">
-            <div class="fw-bold fs-5">{{ wp_count_terms('municipality') }}</div>
+            <div class="fw-bold fs-5">294</div>
             <div class="text-muted small">{{ __('kuntaa', 'omakeikka-wp-theme') }}</div>
           </div>
         </div>
