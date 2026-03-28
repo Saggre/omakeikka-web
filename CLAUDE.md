@@ -153,17 +153,29 @@ Do **not** output `schema.org` structured data via a `<script type="application/
 
 ### Finnish grammar in occupation content
 
-Occupation post titles are stored in plural nominative form (e.g. "Putkiasentajat"). CTAs and headings require other grammatical cases that cannot be derived programmatically. Store them as post meta:
-- `cta_singular` - singular nominative ("putkiasentaja") for "Oletko X?" CTAs
-- `cta_partitive` - plural partitive ("putkiasentajia") for "Etsitkö X?" CTAs
-- `municipality_locative` - inessive case per city ("Helsingissä") for term meta
+Occupation post titles are stored in plural nominative form (e.g. "Lähihoitajat"). CTAs and headings require other grammatical cases that cannot be derived programmatically. Store them as post meta:
+- `cta_singular` - singular nominative ("lähihoitaja") for "Tarvitsetko X?" and "Aloita X-haku" CTAs
+- `cta_partitive` - plural partitive ("lähihoitajia") for "Etsitkö X?" CTAs and municipality section text
+- `alt_titles` - JSON array of alternative plural titles (e.g. `["Hoiva-avustajat"]`) shown in hero as "Myös: ..."
+- `municipality_locative` - inessive case per city ("Helsingissä") for term meta (future use)
+
+### omakeikka app API integration
+
+This WP site connects to the omakeikka Laravel app at `https://app.omakeikka.fi` via its public API. No authentication is required for these endpoints.
+
+**Endpoints used:**
+- `GET /api/occupations/{isco_code}/municipalities` - returns municipalities where employees with the given ISCO occupation code are registered. Used by `SingleOccupation` view composer to populate the city section on occupation pages. Results cached in WP transients (`occupation_municipalities_{isco_code}`) for 1 hour.
+
+**Companion repo:** `~/repos/omakeikka` (Laravel app). The API endpoint above is defined in `routes/api.php` and handled by `App\Http\Controllers\OccupationMunicipalityController`. The service class is `App\Services\OccupationMunicipalitiesService`.
+
+**Adding new API calls:** Use `wp_remote_get()` with `'timeout' => 5` and an `Accept: application/json` header. Always cache results with `set_transient()`. Return an empty array on any error - the template sections use `@if(!empty(...))` guards.
 
 ### Seed script
 
-Mock data for local dev: `scripts/seed-occupations.php`. Run with:
+Data for local dev: `scripts/seed-occupations.php`. Run with:
 
 ```bash
 docker compose run --rm wpcli --allow-root eval-file scripts/seed-occupations.php
 ```
 
-Idempotent - skips existing posts and terms. After seeding, flush rewrite rules.
+**Wipes all occupation posts** on each run, then recreates 11 occupations sourced from `prompts/occupations_28032026.json` (ordered by registered employee count). Municipality taxonomy terms are created idempotently (looked up by `municipality_id` term meta). Municipality assignments per occupation are sourced from the production API (`GET /api/occupations/{isco}/municipalities`) and reflect real registered user locations. After seeding, flush rewrite rules.
