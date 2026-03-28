@@ -6,6 +6,7 @@ prompts/
 # Server / Application
 **/*.bk
 web/wp/*
+web/app/debug.log
 web/app/plugins/*
 web/app/mu-plugins/*
 web/app/themes/*
