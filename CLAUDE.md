@@ -57,6 +57,7 @@ npm run translate:compile  # Compile to .mo/.json
 
 ```bash
 docker compose run --rm wpcli <command>
+npm run wp:db:export    # Export DB to backups/YYYY-MM-DD-HHMMSS.sql
 ```
 
 ## Architecture
@@ -154,10 +155,13 @@ Do **not** output `schema.org` structured data via a `<script type="application/
 ### Finnish grammar in occupation content
 
 Occupation post titles are stored in plural nominative form (e.g. "Lähihoitajat"). CTAs and headings require other grammatical cases that cannot be derived programmatically. Store them as post meta:
-- `cta_singular` - singular nominative ("lähihoitaja") for "Tarvitsetko X?" and "Aloita X-haku" CTAs
+- `cta_singular` - singular nominative ("lähihoitaja") for "Aloita X-haku" CTA
+- `cta_partitive_singular` - partitive singular ("lähihoitajaa") for "Tarvitsetko X?" hero H1
 - `cta_partitive` - plural partitive ("lähihoitajia") for "Etsitkö X?" CTAs and municipality section text
 - `alt_titles` - JSON array of alternative plural titles (e.g. `["Hoiva-avustajat"]`) shown in hero as "Myös: ..."
 - `municipality_locative` - inessive case per city ("Helsingissä") for term meta (future use)
+
+The hero H1 uses `cta_partitive_singular` ("Tarvitsetko lähihoitajaa?"), not the nominative form. Using the nominative ("Tarvitsetko lähihoitaja?") or plural ("Tarvitsetko lähihoitajat?") is grammatically wrong.
 
 ### omakeikka app API integration
 
@@ -170,6 +174,18 @@ This WP site connects to the omakeikka Laravel app at `https://app.omakeikka.fi`
 
 **Adding new API calls:** Use `wp_remote_get()` with `'timeout' => 5` and an `Accept: application/json` header. Always cache results with `set_transient()`. Return an empty array on any error - the template sections use `@if(!empty(...))` guards.
 
+### Occupation content structure
+
+Single occupation pages (`single-occupation.blade.php`) show content in this order:
+1. **"X omakeikassa"** h2 - describes the talent pool available in omakeikka (first, most relevant to employers)
+2. **"Mitä X tekevät?"** h2 - explains what the occupation involves
+
+The "X omakeikassa" text must be based on actual profile data from the occupations JSON. Do not mention specific organisations by name - describe industries and role types only.
+
+### SVG icons
+
+Icons for all 15 occupation groups live in `resources/images/occupations/{isco_code}.svg`. Named by ISCO code (e.g. `5321.svg`). Bud.js copies them to `public/images/occupations/` via `.assets(['images'])` in `bud.config.ts`. All icons use `currentColor` for easy theming.
+
 ### Seed script
 
 Data for local dev: `scripts/seed-occupations.php`. Run with:
@@ -178,4 +194,14 @@ Data for local dev: `scripts/seed-occupations.php`. Run with:
 docker compose run --rm wpcli --allow-root eval-file scripts/seed-occupations.php
 ```
 
-**Wipes all occupation posts** on each run, then recreates 11 occupations sourced from `prompts/occupations_28032026.json` (ordered by registered employee count). Municipality taxonomy terms are created idempotently (looked up by `municipality_id` term meta). Municipality assignments per occupation are sourced from the production API (`GET /api/occupations/{isco}/municipalities`) and reflect real registered user locations. After seeding, flush rewrite rules.
+**Wipes all occupation posts** on each run, then recreates the top 15 occupations by registered employee count sourced from `prompts/occupations_28032026.json`. Municipality taxonomy terms are created idempotently (looked up by `municipality_id` term meta). Municipality assignments for occupations that have real data are hardcoded from the production API; new occupations use empty arrays (display still works via the runtime API call in `SingleOccupation.php`). After seeding, flush rewrite rules.
+
+### DB export
+
+The `wpcli` container runs as a non-root user and cannot write directly to the bind-mounted host directory. Export to stdout instead:
+
+```bash
+npm run wp:db:export    # saves to backups/YYYY-MM-DD-HHMMSS.sql
+```
+
+The `mariadb-dump` binary inside the container also needs `--skip-ssl` (same as `mariadb`). The wrapper lives at `.docker/wpcli/mariadb-dump` and is mounted into the container via `docker-compose.yml`.
