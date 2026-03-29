@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Talousjohtaja">
+  <!-- Coins / euro sign -->
+  <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M30 16a8 8 0 0 0-12 8 8 8 0 0 0 12 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="16" y1="22" x2="28" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="16" y1="26" x2="28" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

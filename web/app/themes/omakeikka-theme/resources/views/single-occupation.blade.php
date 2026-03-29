@@ -20,7 +20,7 @@
 
         <div class="col-lg-7 text-white">
           <h1 class="occupation-hero__title display-5 fw-bold">
-            {{ sprintf(__('Tarvitsetko %s?', 'omakeikka-wp-theme'), $cta_singular) }}
+            {{ sprintf(__('Tarvitsetko %s?', 'omakeikka-wp-theme'), $cta_partitive_singular) }}
           </h1>
           @if(!empty($alt_titles))
             <p class="occupation-hero__alt-titles small text-white-50 mt-1 mb-0">
@@ -33,15 +33,15 @@
           <ol class="occupation-steps list-unstyled d-flex flex-column flex-sm-row gap-3 mt-4">
             <li class="d-flex align-items-center gap-2">
               <span class="occupation-steps__number">1</span>
-              {{ __('Luo profiili', 'omakeikka-wp-theme') }}
+              {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
             </li>
             <li class="d-flex align-items-center gap-2">
               <span class="occupation-steps__number">2</span>
-              {{ __('Löydä sinulle sopivat mahdollisuudet', 'omakeikka-wp-theme') }}
+              {{ __('Selaa profiileja', 'omakeikka-wp-theme') }}
             </li>
             <li class="d-flex align-items-center gap-2">
               <span class="occupation-steps__number">3</span>
-              {{ __('Tee töitä', 'omakeikka-wp-theme') }}
+              {{ __('Ota yhteyttä tekijään', 'omakeikka-wp-theme') }}
             </li>
           </ol>
         </div>
@@ -49,7 +49,7 @@
         <div class="col-lg-5">
           <div class="occupation-hero__card card shadow-lg border-0 p-4">
             <h2 class="h5 mb-1">{{ sprintf(__('Etsitkö %s?', 'omakeikka-wp-theme'), $cta_partitive) }}</h2>
-            <p class="text-muted small mb-3">{{ __('Rekisteröidy työnantajana ja löydä sopivat tekijät.', 'omakeikka-wp-theme') }}</p>
+            <p class="text-muted small mb-3">{{ __('Rekisteröidy työnantajana, selaa profiileja ja ota yhteyttä sopiviin tekijöihin.', 'omakeikka-wp-theme') }}</p>
             <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary w-100">
               {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
             </a>
@@ -115,10 +115,15 @@
   <section class="occupation-cta py-5 bg-dark text-white text-center">
     <div class="container">
       <h2 class="mb-2 text-white">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-wp-theme'), $cta_singular) }}</h2>
-      <p class="lead mb-4 text-white">{{ __('Rekisteröi tarve omakeikassa ja vastaanota tarjouksia.', 'omakeikka-wp-theme') }}</p>
-      <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary btn-lg">
-        {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
-      </a>
+      <p class="lead mb-4 text-white">{{ __('Rekisteröidy, selaa profiileja ja ota yhteyttä sopiviin tekijöihin.', 'omakeikka-wp-theme') }}</p>
+      <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+        <a href="https://app.omakeikka.fi/employer/register" class="btn btn-primary btn-lg">
+          {{ __('Rekisteröidy työnantajana', 'omakeikka-wp-theme') }}
+        </a>
+        <a href="https://app.omakeikka.fi/employee-profiles" class="btn btn-outline-light btn-lg">
+          {{ __('Selaa kaikkia profiileja', 'omakeikka-wp-theme') }}
+        </a>
+      </div>
     </div>
   </section>
 
@@ -130,7 +135,7 @@
   @if(!empty($related_occupations))
     <section class="occupation-related py-5 bg-light">
       <div class="container">
-        <h2 class="h4 mb-3">{{ __('Samankaltaisia ammatteja', 'omakeikka-wp-theme') }}</h2>
+        <h2 class="h4 mb-3">{{ __('Muut ammatit', 'omakeikka-wp-theme') }}</h2>
         <ul class="list-unstyled d-flex flex-wrap gap-2">
           @foreach($related_occupations as $related)
             <li>

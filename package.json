@@ -10,7 +10,8 @@
     "docker:rebuild": "docker compose build --no-cache && npm run docker:up",
     "docker:ssh": "docker compose exec -u root php bash",
     "docker:ssh:nginx": "docker compose exec -u root nginx sh",
-    "wp": "docker compose run --rm wpcli"
+    "wp": "docker compose run --rm wpcli",
+    "wp:db:export": "mkdir -p backups && docker compose run --rm wpcli --allow-root db export - > backups/$(date +%Y-%m-%d-%H%M%S).sql && echo \"Exported to backups/\""
   },
   "author": "",
   "license": "proprietary"

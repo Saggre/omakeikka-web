@@ -25,63 +25,54 @@ class SingleOccupation extends Composer
         $post_id   = get_queried_object_id();
         $isco_code = (string) get_post_meta( $post_id, 'isco_code', true );
 
-        $cta_singular  = (string) get_post_meta( $post_id, 'cta_singular', true );
-        $cta_partitive = (string) get_post_meta( $post_id, 'cta_partitive', true );
-        $alt_titles    = $this->alt_titles( $post_id );
+        $cta_singular          = (string) get_post_meta( $post_id, 'cta_singular', true );
+        $cta_partitive         = (string) get_post_meta( $post_id, 'cta_partitive', true );
+        $cta_partitive_singular = (string) get_post_meta( $post_id, 'cta_partitive_singular', true );
+        $alt_titles            = $this->alt_titles( $post_id );
+        $title_lower           = mb_strtolower( get_the_title() );
 
         return array(
-            'isco_code'            => $isco_code,
-            'cta_singular'         => $cta_singular ?: mb_strtolower( get_the_title() ),
-            'cta_partitive'        => $cta_partitive ?: mb_strtolower( get_the_title() ),
-            'alt_titles'           => $alt_titles,
-            'related_occupations'  => $this->related_occupations( $isco_code, $post_id ),
-            'municipality_links'   => $this->municipality_links( $isco_code ),
-            'json_ld'              => $this->json_ld( $post_id, $isco_code ),
+            'isco_code'              => $isco_code,
+            'cta_singular'           => $cta_singular ?: $title_lower,
+            'cta_partitive'          => $cta_partitive ?: $title_lower,
+            'cta_partitive_singular' => $cta_partitive_singular ?: $title_lower,
+            'alt_titles'             => $alt_titles,
+            'related_occupations'    => $this->other_occupations( $post_id ),
+            'municipality_links'     => $this->municipality_links( $isco_code ),
         );
     }
 
     /**
-     * Return occupations sharing the same 3-digit ISCO prefix, excluding the current post.
+     * Return all published occupation posts except the current one, ordered by menu_order.
      *
-     * @param string $isco_code
-     * @param int    $post_id
+     * @param int $post_id
      * @return array
      */
-    private function related_occupations( string $isco_code, int $post_id ): array {
-        if ( strlen( $isco_code ) < 3 ) {
-            return array();
-        }
-
-        $prefix        = substr( $isco_code, 0, 3 );
-        $transient_key = 'occupation_related_' . $prefix;
-        $cached        = get_transient( $transient_key );
+    private function other_occupations( int $post_id ): array {
+        $cached = get_transient( 'occupation_all_links' );
 
         if ( false === $cached ) {
             $posts = get_posts( array(
                 'post_type'      => 'occupation',
                 'posts_per_page' => -1,
                 'post_status'    => 'publish',
-                'fields'         => 'ids',
+                'orderby'        => 'menu_order',
+                'order'          => 'ASC',
             ) );
 
             $cached = array();
-            foreach ( $posts as $id ) {
-                $code = (string) get_post_meta( $id, 'isco_code', true );
-                if ( strncmp( $code, $prefix, 3 ) === 0 ) {
-                    $cached[] = array(
-                        'id'    => $id,
-                        'title' => get_the_title( $id ),
-                        'url'   => get_permalink( $id ),
-                    );
-                }
+            foreach ( $posts as $post ) {
+                $cached[] = array(
+                    'id'    => $post->ID,
+                    'title' => $post->post_title,
+                    'url'   => get_permalink( $post->ID ),
+                );
             }
 
-            set_transient( $transient_key, $cached, HOUR_IN_SECONDS );
+            set_transient( 'occupation_all_links', $cached, HOUR_IN_SECONDS );
         }
 
-        return array_values( array_filter( $cached, function ( $item ) use ( $post_id ) {
-            return $item['id'] !== $post_id;
-        } ) );
+        return array_values( array_filter( $cached, fn( $item ) => $item['id'] !== $post_id ) );
     }
 
     /**
@@ -122,7 +113,10 @@ class SingleOccupation extends Composer
         }
 
         $url      = 'https://app.omakeikka.fi/api/occupations/' . rawurlencode( $isco_code ) . '/municipalities';
-        $response = wp_remote_get( $url, array( 'timeout' => 5 ) );
+        $response = wp_remote_get( $url, array(
+            'timeout' => 5,
+            'headers' => array( 'Accept' => 'application/json' ),
+        ) );
 
         if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
             return array();
@@ -144,31 +138,5 @@ class SingleOccupation extends Composer
         return $links;
     }
 
-    /**
-     * Build the schema.org/Occupation JSON-LD string for this post.
-     *
-     * @param int    $post_id
-     * @param string $isco_code
-     * @return string
-     */
-    private function json_ld( int $post_id, string $isco_code ): string {
-        $data = array(
-            '@context'             => 'https://schema.org',
-            '@type'                => 'Occupation',
-            'name'                 => get_the_title( $post_id ),
-            'occupationalCategory' => $isco_code,
-            'occupationLocation'   => array(
-                '@type' => 'Country',
-                'name'  => 'Finland',
-            ),
-            'url' => get_permalink( $post_id ),
-        );
-
-        $excerpt = get_the_excerpt( $post_id );
-        if ( $excerpt ) {
-            $data['description'] = wp_strip_all_tags( $excerpt );
-        }
-
-        return (string) wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
-    }
 }
+

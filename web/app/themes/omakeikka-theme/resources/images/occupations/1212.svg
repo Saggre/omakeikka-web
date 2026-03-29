@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Henkilöstöjohtaja">
+  <!-- People group -->
+  <circle cx="24" cy="14" r="6" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M10 40c0-8 6-12 14-12s14 4 14 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="10" cy="18" r="4" stroke="currentColor" stroke-width="2"/>
+  <path d="M2 36c0-5 3.5-8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="38" cy="18" r="4" stroke="currentColor" stroke-width="2"/>
+  <path d="M46 36c0-5-3.5-8-8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

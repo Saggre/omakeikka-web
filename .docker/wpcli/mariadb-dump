@@ -1,0 +1,11 @@
+#!/bin/sh
+# --no-defaults must be the first argument; insert --skip-ssl right after it
+case "$1" in
+  --no-defaults|--defaults-file=*|--defaults-extra-file=*)
+    first="$1"; shift
+    exec /usr/bin/mariadb-dump "$first" --skip-ssl "$@"
+    ;;
+  *)
+    exec /usr/bin/mariadb-dump --skip-ssl "$@"
+    ;;
+esac

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Toimistoavustaja">
+  <!-- Clipboard with checkmarks -->
+  <rect x="10" y="10" width="28" height="34" rx="2" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M18 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4H18V8Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M16 22l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="16" y1="34" x2="32" y2="34" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Kiinteistönhoitaja">
+  <!-- Building with wrench -->
+  <path d="M8 42V18L24 8l16 10v24H8Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="18" y="28" width="12" height="14" rx="1" stroke="currentColor" stroke-width="2"/>
+  <path d="M30 20a4 4 0 1 0-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <line x1="28" y1="22" x2="36" y2="30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M34 28l2 2-1 1-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

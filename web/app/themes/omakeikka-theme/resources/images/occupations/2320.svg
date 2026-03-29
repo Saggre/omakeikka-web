@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Ammatillinen opettaja">
+  <!-- Graduation cap -->
+  <path d="M24 14L6 22l18 8 18-8-18-8Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M14 26v8c0 2 4.5 6 10 6s10-4 10-6v-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="42" y1="22" x2="42" y2="34" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="42" cy="36" r="2" fill="currentColor"/>
+</svg>

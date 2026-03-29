@@ -57,6 +57,7 @@ services:
     volumes:
       - ./:/var/www/html
       - ./.docker/wpcli/mariadb:/usr/local/bin/mariadb:ro
+      - ./.docker/wpcli/mariadb-dump:/usr/local/bin/mariadb-dump:ro
     working_dir: /var/www/html
     entrypoint: [ "wp" ]
     # Usage: docker compose run --rm wpcli core install ...
