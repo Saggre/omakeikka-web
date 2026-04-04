@@ -1,5 +1,5 @@
 {
-  "name": "omakeikka-wp-theme",
+  "name": "omakeikka-theme",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config"

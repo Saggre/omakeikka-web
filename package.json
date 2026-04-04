@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter omakeikka-wp-theme run pre-build && pnpm --filter omakeikka-wp-theme run build",
+    "build": "pnpm --filter omakeikka-theme run pre-build && pnpm --filter omakeikka-theme run build",
     "docker:up": "docker compose up -d",
     "docker:stop": "docker compose stop",
     "docker:rebuild": "docker compose build --no-cache && pnpm run docker:up",

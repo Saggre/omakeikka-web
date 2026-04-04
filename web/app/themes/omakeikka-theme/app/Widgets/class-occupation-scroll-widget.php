@@ -10,7 +10,7 @@ class Occupation_Scroll_Widget extends Widget_Base {
     }
 
     public function get_title() {
-        return esc_html__( 'Occupation Scroll', 'omakeikka-wp-theme' );
+        return esc_html__( 'Occupation Scroll', 'omakeikka-theme' );
     }
 
     public function get_icon() {

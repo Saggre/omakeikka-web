@@ -10,7 +10,7 @@ class Municipality_Map_Widget extends Widget_Base {
     }
 
     public function get_title() {
-        return esc_html__( 'Municipality Map', 'omakeikka-wp-theme' );
+        return esc_html__( 'Municipality Map', 'omakeikka-theme' );
     }
 
     public function get_icon() {

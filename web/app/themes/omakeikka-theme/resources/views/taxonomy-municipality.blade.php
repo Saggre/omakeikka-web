@@ -8,16 +8,16 @@
 
   <header class="municipality-archive__header py-5 bg-light">
     <div class="container">
-      <nav aria-label="{{ __('Breadcrumb', 'omakeikka-wp-theme') }}">
+      <nav aria-label="{{ __('Breadcrumb', 'omakeikka-theme') }}">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{{ get_post_type_archive_link('occupation') }}">{{ __('Ammatit', 'omakeikka-wp-theme') }}</a>
+            <a href="{{ get_post_type_archive_link('occupation') }}">{{ __('Ammatit', 'omakeikka-theme') }}</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">{{ $municipality->name }}</li>
         </ol>
       </nav>
 
-      <h1>{{ sprintf(__('Ammatit %s', 'omakeikka-wp-theme'), $municipality->name) }}</h1>
+      <h1>{{ sprintf(__('Ammatit %s', 'omakeikka-theme'), $municipality->name) }}</h1>
 
       {{-- TODO Phase 5: Live professional count for this municipality --}}
     </div>
@@ -45,7 +45,7 @@
           @endforeach
         </div>
       @else
-        <p>{{ __('Ei ammatteja tässä kunnassa.', 'omakeikka-wp-theme') }}</p>
+        <p>{{ __('Ei ammatteja tässä kunnassa.', 'omakeikka-theme') }}</p>
       @endif
     </div>
   </section>

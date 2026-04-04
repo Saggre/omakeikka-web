@@ -49,22 +49,22 @@ export default defineComponent({
 
     this.patterns = [
       this.canvas.pattern(200, 200, (add) => {
-        add.image('/wp-content/themes/omakeikka-wp-theme/resources/images/halftone/Light-Halftone-Screen-Large.png')
+        add.image('/app/themes/omakeikka-theme/resources/images/halftone/Light-Halftone-Screen-Large.png')
           .width(200)
           .height(200);
       }),
       this.canvas.pattern(200, 200, (add) => {
-        add.image('/wp-content/themes/omakeikka-wp-theme/resources/images/halftone/Fine-Halftone-Screen-Large.png')
+        add.image('/app/themes/omakeikka-theme/resources/images/halftone/Fine-Halftone-Screen-Large.png')
           .width(200)
           .height(200);
       }),
       this.canvas.pattern(150, 150, (add) => {
-        add.image('/wp-content/themes/omakeikka-wp-theme/resources/images/halftone/Heavy-Halftone-Screen-Large.png')
+        add.image('/app/themes/omakeikka-theme/resources/images/halftone/Heavy-Halftone-Screen-Large.png')
           .width(150)
           .height(150);
       }),
       this.canvas.pattern(300, 300, (add) => {
-        add.image('/wp-content/themes/omakeikka-wp-theme/resources/images/halftone/Fine-Halftone-Screen-Large.png')
+        add.image('/app/themes/omakeikka-theme/resources/images/halftone/Fine-Halftone-Screen-Large.png')
           .width(300)
           .height(300);
       }),

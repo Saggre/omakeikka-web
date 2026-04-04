@@ -7,7 +7,7 @@
     >
       <img
         :alt="`Avatar ${index}`"
-        :src="`/wp-content/themes/omakeikka-wp-theme/resources/images/avatars/${avatar}.jpg`"
+        :src="`/app/themes/omakeikka-theme/resources/images/avatars/${avatar}.jpg`"
       >
     </div>
   </div>

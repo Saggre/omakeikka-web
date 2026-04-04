@@ -8,26 +8,26 @@
 
   // Always start with home.
   $crumbs[] = array(
-      'label' => __( 'Koti', 'omakeikka-wp-theme' ),
+      'label' => __( 'Koti', 'omakeikka-theme' ),
       'url'   => home_url( '/' ),
   );
 
   if ( is_singular( 'occupation' ) ) {
       $crumbs[] = array(
-          'label' => __( 'Ammatit', 'omakeikka-wp-theme' ),
+          'label' => __( 'Ammatit', 'omakeikka-theme' ),
           'url'   => get_post_type_archive_link( 'occupation' ),
       );
       $crumbs[] = array( 'label' => get_the_title() );
 
   } elseif ( is_tax( 'municipality' ) ) {
       $crumbs[] = array(
-          'label' => __( 'Ammatit', 'omakeikka-wp-theme' ),
+          'label' => __( 'Ammatit', 'omakeikka-theme' ),
           'url'   => get_post_type_archive_link( 'occupation' ),
       );
       $crumbs[] = array( 'label' => single_term_title( '', false ) );
 
   } elseif ( is_post_type_archive( 'occupation' ) ) {
-      $crumbs[] = array( 'label' => __( 'Ammatit', 'omakeikka-wp-theme' ) );
+      $crumbs[] = array( 'label' => __( 'Ammatit', 'omakeikka-theme' ) );
 
   } elseif ( is_singular() ) {
       $post_type = get_post_type();
@@ -65,15 +65,15 @@
       $crumbs[] = array( 'label' => get_the_archive_title() );
 
   } elseif ( is_search() ) {
-      $crumbs[] = array( 'label' => sprintf( __( 'Haun tulokset: %s', 'omakeikka-wp-theme' ), get_search_query() ) );
+      $crumbs[] = array( 'label' => sprintf( __( 'Haun tulokset: %s', 'omakeikka-theme' ), get_search_query() ) );
 
   } elseif ( is_404() ) {
-      $crumbs[] = array( 'label' => __( 'Sivua ei löydy', 'omakeikka-wp-theme' ) );
+      $crumbs[] = array( 'label' => __( 'Sivua ei löydy', 'omakeikka-theme' ) );
   }
 @endphp
 
 @if(count($crumbs) > 1)
-  <nav class="site-breadcrumb bg-light border-bottom py-2" aria-label="{{ __('Murupolku', 'omakeikka-wp-theme') }}">
+  <nav class="site-breadcrumb bg-light border-bottom py-2" aria-label="{{ __('Murupolku', 'omakeikka-theme') }}">
     <div class="container">
       <ol class="breadcrumb mb-0 small">
         @foreach($crumbs as $i => $crumb)
