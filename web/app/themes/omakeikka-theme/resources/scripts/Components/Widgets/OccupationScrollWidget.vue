@@ -24,18 +24,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { getOccupations } from '@/api/occupations';
 
 export default defineComponent({
-  props: {
-    occupations: {
-      type: Object as () => Record<string, string>,
-      default: () => ({}),
-    },
+  components: {
   },
   data() {
     return {
       totalDelay: 110,
-      scrollWidth: 14000,
+      occupations: {},
     };
   },
   computed: {
@@ -45,18 +42,16 @@ export default defineComponent({
     delay() {
       return (this.totalDelay / this.occupationCount) * 1000;
     },
-    totalDelayWithUnits() {
-      return `${this.totalDelay}s`;
-    },
-    scrollWidthWithUnits() {
-      return `${this.scrollWidth}px`;
-    },
+  },
+  async mounted() {
+    this.occupations = await getOccupations();
   },
 });
 </script>
 
 <style lang="scss">
 $sine-height: 40px;
+$anim-width: 14000px;
 $random-height: 125px;
 $badge-height: 25px;
 
@@ -72,7 +67,7 @@ $badge-height: 25px;
     width: 10%;
     left: -800px;
     overflow-x: visible;
-    animation: translate v-bind('totalDelayWithUnits') infinite linear;
+    animation: translate 110s infinite linear;
   }
 
   &--y {
@@ -84,17 +79,17 @@ $badge-height: 25px;
 
 @keyframes upDown {
   to {
-    transform: translatey($sine-height);
+    transform: translateY($sine-height);
   }
 }
 
 @keyframes translate {
   from {
-    transform: translatex(0);
+    transform: translateX(0);
   }
 
   to {
-    transform: translatex(v-bind('scrollWidthWithUnits'));
+    transform: translateX($anim-width);
   }
 }
 </style>
