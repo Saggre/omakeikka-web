@@ -1,0 +1,128 @@
+name: CI / Deploy
+
+on:
+  push:
+    branches: [master, staging, production]
+  pull_request:
+    branches: [master]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Deploy to staging on push to the staging branch
+  # ---------------------------------------------------------------------------
+  deploy-staging:
+    name: Deploy (staging)
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, mbstring, zip, xml, bcmath
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: web/app/themes/omakeikka-theme/package-lock.json
+
+      - name: Install theme npm dependencies
+        run: npm ci
+        working-directory: web/app/themes/omakeikka-theme
+
+      - name: Build theme assets
+        run: npm run build
+        working-directory: web/app/themes/omakeikka-theme
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ vars.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: vendor/bin/dep deploy staging --no-interaction
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+
+  # ---------------------------------------------------------------------------
+  # Deploy to production on push to the production branch
+  # ---------------------------------------------------------------------------
+  deploy-production:
+    name: Deploy (production)
+    if: github.ref == 'refs/heads/production' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, mbstring, zip, xml, bcmath
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: web/app/themes/omakeikka-theme/package-lock.json
+
+      - name: Install theme npm dependencies
+        run: npm ci
+        working-directory: web/app/themes/omakeikka-theme
+
+      - name: Build theme assets
+        run: npm run build
+        working-directory: web/app/themes/omakeikka-theme
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ vars.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: vendor/bin/dep deploy production --no-interaction
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}

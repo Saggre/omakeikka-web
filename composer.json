@@ -52,8 +52,9 @@
     "wpackagist-plugin/wp-mail-smtp": "^4.6"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-latest",
-    "laravel/pint": "^1.18"
+    "deployer/deployer": "^7",
+    "laravel/pint": "^1.18",
+    "roave/security-advisories": "dev-latest"
   },
   "config": {
     "sort-packages": true,
