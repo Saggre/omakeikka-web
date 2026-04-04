@@ -44,9 +44,14 @@ host('production')
 // Tasks
 // -------------------------------------------------------------------------
 
+task('deploy:theme:vendors', function () {
+    run('cd {{release_path}}/web/app/themes/omakeikka-theme && {{bin/composer}} install --prefer-dist --no-dev --no-progress --optimize-autoloader');
+});
+
 task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
+    'deploy:theme:vendors',
     'deploy:publish',
 ]);
 
