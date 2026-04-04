@@ -53,9 +53,6 @@
         <a href="/rekisteroidy/" class="btn btn-primary btn-lg">
           {{ __('Rekisteröidy työnantajana', 'omakeikka-theme') }}
         </a>
-        <a href="/rekisteroidy/" class="btn btn-outline-light btn-lg">
-          {{ __('Rekisteröidy ja selaa profiileja', 'omakeikka-theme') }}
-        </a>
       </div>
     </div>
   </section>
