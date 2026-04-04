@@ -11,7 +11,7 @@
         {{ __('Löydä töitä ammattiasi vastaavissa tehtävissä tai löydä oikeat tekijät omakeikasta.', 'omakeikka-wp-theme') }}
       </p>
       <p class="text-muted mb-0">
-        {{ __('Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta — ', 'omakeikka-wp-theme') }}<a href="/rekisteroidy/">{{ __('rekisteröidy ja selaa kaikkia profiileja', 'omakeikka-wp-theme') }}</a>.
+        {{ __('Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta - ', 'omakeikka-wp-theme') }}<a href="/rekisteroidy/">{{ __('rekisteröidy ja selaa kaikkia profiileja', 'omakeikka-wp-theme') }}</a>.
       </p>
     </div>
   </header>
