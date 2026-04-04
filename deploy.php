@@ -29,15 +29,15 @@ set('composer_options', '--prefer-dist --no-dev --no-progress --optimize-autoloa
 // -------------------------------------------------------------------------
 
 host('staging')
-    ->set('remote_user', getenv('DEPLOY_USER') ?: 'omakeikkawp')
+    ->set('remote_user', getenv('DEPLOY_USER') ?: 'omakeikkafi')
     ->set('hostname', getenv('DEPLOY_HOST'))
-    ->set('deploy_path', '/home/omakeikkawp/sites/omakeikka-web-staging')
+    ->set('deploy_path', getenv('DEPLOY_PATH'))
     ->set('branch', 'staging');
 
 host('production')
-    ->set('remote_user', getenv('DEPLOY_USER') ?: 'omakeikkawp')
+    ->set('remote_user', getenv('DEPLOY_USER') ?: 'omakeikkafi')
     ->set('hostname', getenv('DEPLOY_HOST'))
-    ->set('deploy_path', '/home/omakeikkawp/sites/omakeikka-web-production')
+    ->set('deploy_path', getenv('DEPLOY_PATH'))
     ->set('branch', 'production');
 
 // -------------------------------------------------------------------------
