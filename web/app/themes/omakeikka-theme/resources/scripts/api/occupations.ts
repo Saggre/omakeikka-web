@@ -8,6 +8,7 @@ export const getOccupations = async (): Promise<{[key: string]: string}> => {
       .request({
         method: 'GET',
         url: `${baseUrl}/api/occupations?existing`,
+        headers: { Accept: 'application/json' },
       });
 
     return response.data || {};
