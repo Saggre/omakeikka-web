@@ -15,6 +15,9 @@ web/app/upgrade/*
 web/app/languages/*
 web/app/cache/*
 
+# Node
+node_modules/
+
 # Composer
 vendor/
 !web/app/themes/omakeikka-theme

@@ -37,24 +37,20 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: web/app/themes/omakeikka-theme/package-lock.json
+          cache: 'pnpm'
 
-      - name: Install theme npm dependencies
-        run: npm ci
-        working-directory: web/app/themes/omakeikka-theme
-
-      - name: Generate theme data
-        run: npm run pre-build
-        working-directory: web/app/themes/omakeikka-theme
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build theme assets
-        run: npm run build
-        working-directory: web/app/themes/omakeikka-theme
+        run: pnpm run build
 
       - name: Configure SSH
         run: |
@@ -102,24 +98,20 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: web/app/themes/omakeikka-theme/package-lock.json
+          cache: 'pnpm'
 
-      - name: Install theme npm dependencies
-        run: npm ci
-        working-directory: web/app/themes/omakeikka-theme
-
-      - name: Generate theme data
-        run: npm run pre-build
-        working-directory: web/app/themes/omakeikka-theme
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build theme assets
-        run: npm run build
-        working-directory: web/app/themes/omakeikka-theme
+        run: pnpm run build
 
       - name: Configure SSH
         run: |

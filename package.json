@@ -1,18 +1,18 @@
 {
   "name": "omakeikka-web",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "cd web/app/themes/omakeikka-theme && npm run build:css && cd -",
+    "build": "pnpm --filter omakeikka-wp-theme run pre-build && pnpm --filter omakeikka-wp-theme run build",
     "docker:up": "docker compose up -d",
     "docker:stop": "docker compose stop",
-    "docker:rebuild": "docker compose build --no-cache && npm run docker:up",
+    "docker:rebuild": "docker compose build --no-cache && pnpm run docker:up",
     "docker:ssh": "docker compose exec -u root php bash",
     "docker:ssh:nginx": "docker compose exec -u root nginx sh",
     "wp": "docker compose run --rm wpcli",
     "wp:db:export": "mkdir -p backups && docker compose run --rm wpcli --allow-root db export - > backups/$(date +%Y-%m-%d-%H%M%S).sql && echo \"Exported to backups/\""
   },
   "author": "",
-  "license": "proprietary"
+  "license": "proprietary",
+  "packageManager": "pnpm@9.1.3"
 }
