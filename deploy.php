@@ -44,6 +44,12 @@ host('production')
 // Tasks
 // -------------------------------------------------------------------------
 
+task('deploy', [
+    'deploy:prepare',
+    'deploy:vendors',
+    'deploy:publish',
+]);
+
 // Theme assets are built in CI - Node.js is not available on the server.
 // Upload the compiled theme public/ directory after code is in place.
 after('deploy:update_code', function () {
