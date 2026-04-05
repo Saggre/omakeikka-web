@@ -120,9 +120,6 @@
         <a href="/rekisteroidy/" class="btn btn-primary btn-lg">
           {{ __('Rekisteröidy työnantajana', 'omakeikka-theme') }}
         </a>
-        <a href="https://app.omakeikka.fi/employee-profiles" class="btn btn-outline-light btn-lg">
-          {{ __('Selaa kaikkia profiileja', 'omakeikka-theme') }}
-        </a>
       </div>
     </div>
   </section>
