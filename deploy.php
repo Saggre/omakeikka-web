@@ -61,4 +61,10 @@ after('deploy:update_code', function () {
     upload('web/app/themes/omakeikka-theme/public/', '{{release_path}}/web/app/themes/omakeikka-theme/public/');
 });
 
+task('deploy:cache:clear', function () {
+    run('cd {{current_path}} && wp acorn view:clear');
+    run('cd {{current_path}} && wp transient delete --all');
+});
+
+after('deploy:publish', 'deploy:cache:clear');
 after('deploy:failed', 'deploy:unlock');
