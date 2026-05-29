@@ -29,3 +29,6 @@ vendor/
 # WordPress
 wp/
 .env
+
+# Docker
+/.docker/docker.env

@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "build": "pnpm --filter omakeikka-theme run pre-build && pnpm --filter omakeikka-theme run build",
-    "docker:up": "docker compose up -d",
-    "docker:stop": "docker compose stop",
-    "docker:rebuild": "docker compose build --no-cache && pnpm run docker:up",
-    "docker:ssh": "docker compose exec -u root php bash",
-    "docker:ssh:nginx": "docker compose exec -u root nginx sh",
-    "wp": "docker compose run --rm wpcli",
-    "wp:db:export": "mkdir -p backups && docker compose run --rm wpcli --allow-root db export - > backups/$(date +%Y-%m-%d-%H%M%S).sql && echo \"Exported to backups/\""
+    "docker:up": "docker compose --env-file .docker/docker.env up -d",
+    "docker:stop": "docker compose --env-file .docker/docker.env stop",
+    "docker:rebuild": "docker compose --env-file .docker/docker.env build --no-cache && pnpm run docker:up",
+    "docker:ssh": "docker compose --env-file .docker/docker.env exec -u root php bash",
+    "docker:ssh:nginx": "docker compose --env-file .docker/docker.env exec -u root nginx sh",
+    "wp": "docker compose --env-file .docker/docker.env run --rm wpcli",
+    "wp:db:export": "mkdir -p backups && docker compose --env-file .docker/docker.env run --rm wpcli --allow-root db export - > backups/$(date +%Y-%m-%d-%H%M%S).sql && echo \"Exported to backups/\""
   },
   "author": "",
   "license": "proprietary",
