@@ -93,7 +93,7 @@
               @foreach($groups as $group)
                 <div class="col-6 col-md-4 col-lg-3">
                   <a
-                    href="{{ esc_url( get_term_link( $group['slug'], 'marketplace_group' ) ) }}"
+                    href="{{ esc_url( $group['url'] ) }}"
                     class="marketplace-grid__card text-decoration-none d-flex flex-column align-items-center text-center h-100"
                     data-cta="category-card"
                     data-category="{{ esc_attr( $group['slug'] ) }}"

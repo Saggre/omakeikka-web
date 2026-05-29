@@ -38,6 +38,17 @@ Finnish strings for the palvelutori feature must be copied verbatim from the oma
 
 When you need a string the app doesn't already define, ask first or note the gap in the PR description, do not invent Finnish copy.
 
+## Palvelutori link targets
+
+The link target for a category card depends on context:
+
+- Landing page (`/palvelutori/`) group cards: group taxonomy archive (`/palvelut/ryhma/{slug}/`) so visitors can preview the services in that group before committing
+- All-categories archive (`/palvelut/`) cards: single SEO page (`/palvelut/{slug}/`) so search traffic lands on indexable content
+- Single SEO page CTAs: the app's create page with `?category_id` pre-filled
+- Group taxonomy archive (`/palvelut/ryhma/{slug}/`) cards: same app deep link, since the visitor has already chosen a group and is ready to act
+
+This is intentional. Keep it consistent when adding new entry points.
+
 ## Deploy notes
 
 When `_elementor_data` is updated outside the Elementor editor (for example via wp eval-file), Elementor's asset cache still hides the new content. Run after any such update:

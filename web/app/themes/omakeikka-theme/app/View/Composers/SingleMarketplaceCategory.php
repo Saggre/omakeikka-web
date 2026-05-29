@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use App\Services\MarketplaceCategoryQuery;
 use Roots\Acorn\View\Composer;
 
 class SingleMarketplaceCategory extends Composer
@@ -27,25 +28,20 @@ class SingleMarketplaceCategory extends Composer
         $icon      = (string) get_post_meta( $post_id, 'icon_class', true );
         $group_key = (string) get_post_meta( $post_id, 'group_key', true );
 
-        $app_create_url = $app_id > 0
-            ? 'https://app.omakeikka.fi/marketplace-requests/create?category_id=' . $app_id
-            : 'https://app.omakeikka.fi/marketplace-requests/create';
+        $title = html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' );
 
         return array(
-            'category_title'    => html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' ),
-            'category_title_lc' => mb_strtolower( html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' ) ),
+            'category_title'    => $title,
+            'category_title_lc' => mb_strtolower( $title ),
             'category_icon'     => $icon,
             'category_group'    => $this->group( $group_key ),
-            'app_create_url'    => $app_create_url,
-            'related'           => $this->related_in_group( $post_id, $group_key ),
+            'app_create_url'    => MarketplaceCategoryQuery::appCreateUrl( $app_id ),
+            'related'           => $this->relatedInGroup( $post_id, $group_key ),
         );
     }
 
     /**
-     * Return group term (name, slug, url, icon).
-     *
-     * @param string $group_key
-     * @return array|null
+     * Return group term (name, slug, url, icon) by its group_key meta value.
      */
     private function group( string $group_key ): ?array {
         if ( '' === $group_key ) {
@@ -67,47 +63,11 @@ class SingleMarketplaceCategory extends Composer
     }
 
     /**
-     * Return other categories in the same group, excluding the current one.
-     *
-     * @param int    $post_id
-     * @param string $group_key
-     * @return array
+     * Other categories in the same group, current one excluded.
      */
-    private function related_in_group( int $post_id, string $group_key ): array {
-        if ( '' === $group_key ) {
-            return array();
-        }
+    private function relatedInGroup( int $post_id, string $group_key ): array {
+        $all = MarketplaceCategoryQuery::categoriesByGroupKey( $group_key );
 
-        $cache_key = 'marketplace_related_' . $group_key;
-        $cached    = get_transient( $cache_key );
-
-        if ( false === $cached ) {
-            $posts = get_posts( array(
-                'post_type'      => 'marketplace_category',
-                'posts_per_page' => -1,
-                'orderby'        => 'menu_order',
-                'order'          => 'ASC',
-                'meta_query'     => array(
-                    array(
-                        'key'   => 'group_key',
-                        'value' => $group_key,
-                    ),
-                ),
-            ) );
-
-            $cached = array();
-            foreach ( $posts as $post ) {
-                $cached[] = array(
-                    'id'         => $post->ID,
-                    'title'      => $post->post_title,
-                    'url'        => get_permalink( $post->ID ),
-                    'icon_class' => (string) get_post_meta( $post->ID, 'icon_class', true ),
-                );
-            }
-
-            set_transient( $cache_key, $cached, HOUR_IN_SECONDS );
-        }
-
-        return array_values( array_filter( $cached, fn( $item ) => $item['id'] !== $post_id ) );
+        return array_values( array_filter( $all, fn( $item ) => $item['id'] !== $post_id ) );
     }
 }

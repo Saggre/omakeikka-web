@@ -11,6 +11,11 @@
 
 add_action( 'init', 'omakeikka_register_marketplace_category_cpt' );
 add_action( 'init', 'omakeikka_marketplace_group_rewrite_rule', 11 );
+add_action( 'save_post_marketplace_category', 'omakeikka_flush_marketplace_caches' );
+add_action( 'deleted_post', 'omakeikka_flush_marketplace_caches_on_delete', 10, 2 );
+add_action( 'created_marketplace_group', 'omakeikka_flush_marketplace_caches' );
+add_action( 'edited_marketplace_group', 'omakeikka_flush_marketplace_caches' );
+add_action( 'delete_marketplace_group', 'omakeikka_flush_marketplace_caches' );
 
 /**
  * Register the marketplace_category CPT and marketplace_group taxonomy.
@@ -79,4 +84,22 @@ function omakeikka_marketplace_group_rewrite_rule(): void {
 		'index.php?marketplace_group=$matches[1]',
 		'top'
 	);
+}
+
+/**
+ * Drop every marketplace_* transient. Hooked to CPT and taxonomy edits
+ * so editor changes appear without waiting for the 1h cache to expire.
+ */
+function omakeikka_flush_marketplace_caches(): void {
+	global $wpdb;
+	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_marketplace_%' OR option_name LIKE '_transient_timeout_marketplace_%'" );
+}
+
+/**
+ * Bridge for the deleted_post hook, which fires for every post type.
+ */
+function omakeikka_flush_marketplace_caches_on_delete( int $post_id, \WP_Post $post ): void {
+	if ( 'marketplace_category' === $post->post_type ) {
+		omakeikka_flush_marketplace_caches();
+	}
 }

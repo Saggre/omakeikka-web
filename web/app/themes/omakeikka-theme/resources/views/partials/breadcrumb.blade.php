@@ -34,7 +34,7 @@
           'label' => __( 'Palvelut', 'omakeikka-theme' ),
           'url'   => get_post_type_archive_link( 'marketplace_category' ),
       );
-      $crumbs[] = array( 'label' => get_the_title() );
+      $crumbs[] = array( 'label' => html_entity_decode( get_the_title(), ENT_QUOTES, 'UTF-8' ) );
 
   } elseif ( is_tax( 'marketplace_group' ) ) {
       $crumbs[] = array(

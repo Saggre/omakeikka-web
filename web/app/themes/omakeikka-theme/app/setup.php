@@ -34,14 +34,27 @@ add_action( 'elementor/widgets/register', function ( $widgets_manager ) {
  * @return void
  */
 add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style(
-        'bootstrap-icons',
-        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
-        array(),
-        '1.13.1'
-    );
+    if ( omakeikka_is_marketplace_context() ) {
+        wp_enqueue_style(
+            'bootstrap-icons',
+            'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
+            array(),
+            '1.13.1'
+        );
+    }
     bundle( 'app' )->enqueue();
 }, 100 );
+
+/**
+ * Returns true on pages that render marketplace category icons.
+ */
+function omakeikka_is_marketplace_context(): bool {
+    return is_singular( 'marketplace_category' )
+        || is_post_type_archive( 'marketplace_category' )
+        || is_tax( 'marketplace_group' )
+        || is_page_template( 'template-palvelutori.blade.php' )
+        || is_front_page();
+}
 
 /**
  * Register the theme assets with the block editor.

@@ -254,11 +254,8 @@ foreach ( $categories as $cat ) {
 
 // --- Clear caches ---
 
-delete_transient( 'marketplace_category_grid' );
-delete_transient( 'marketplace_groups' );
 global $wpdb;
-$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_marketplace_%'" );
-$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_marketplace_%'" );
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_marketplace_%' OR option_name LIKE '_transient_timeout_marketplace_%'" );
 
 WP_CLI::line( '' );
 WP_CLI::success( 'Done. Run `wp --allow-root cache flush` if object caching is active, then `wp rewrite flush --hard`.' );
