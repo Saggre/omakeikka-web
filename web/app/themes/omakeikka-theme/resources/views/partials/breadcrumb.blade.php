@@ -24,10 +24,27 @@
           'label' => __( 'Ammatit', 'omakeikka-theme' ),
           'url'   => get_post_type_archive_link( 'occupation' ),
       );
-      $crumbs[] = array( 'label' => single_term_title( '', false ) );
+      $crumbs[] = array( 'label' => html_entity_decode( single_term_title( '', false ), ENT_QUOTES, 'UTF-8' ) );
 
   } elseif ( is_post_type_archive( 'occupation' ) ) {
       $crumbs[] = array( 'label' => __( 'Ammatit', 'omakeikka-theme' ) );
+
+  } elseif ( is_singular( 'marketplace_category' ) ) {
+      $crumbs[] = array(
+          'label' => __( 'Palvelut', 'omakeikka-theme' ),
+          'url'   => get_post_type_archive_link( 'marketplace_category' ),
+      );
+      $crumbs[] = array( 'label' => get_the_title() );
+
+  } elseif ( is_tax( 'marketplace_group' ) ) {
+      $crumbs[] = array(
+          'label' => __( 'Palvelut', 'omakeikka-theme' ),
+          'url'   => get_post_type_archive_link( 'marketplace_category' ),
+      );
+      $crumbs[] = array( 'label' => html_entity_decode( single_term_title( '', false ), ENT_QUOTES, 'UTF-8' ) );
+
+  } elseif ( is_post_type_archive( 'marketplace_category' ) ) {
+      $crumbs[] = array( 'label' => __( 'Palvelut', 'omakeikka-theme' ) );
 
   } elseif ( is_singular() ) {
       $post_type = get_post_type();

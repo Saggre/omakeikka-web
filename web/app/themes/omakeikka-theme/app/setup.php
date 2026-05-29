@@ -6,6 +6,7 @@
 
 namespace App;
 
+use App\Widgets\Marketplace_Category_Grid_Widget;
 use App\Widgets\Municipality_Map_Widget;
 use App\Widgets\Occupation_Grid_Widget;
 use App\Widgets\Occupation_Scroll_Widget;
@@ -24,6 +25,7 @@ add_action( 'elementor/widgets/register', function ( $widgets_manager ) {
     $widgets_manager->register( new Municipality_Map_Widget() );
     $widgets_manager->register( new Occupation_Scroll_Widget() );
     $widgets_manager->register( new Occupation_Grid_Widget() );
+    $widgets_manager->register( new Marketplace_Category_Grid_Widget() );
 } );
 
 /**
@@ -32,6 +34,12 @@ add_action( 'elementor/widgets/register', function ( $widgets_manager ) {
  * @return void
  */
 add_action( 'wp_enqueue_scripts', function () {
+    wp_enqueue_style(
+        'bootstrap-icons',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
+        array(),
+        '1.13.1'
+    );
     bundle( 'app' )->enqueue();
 }, 100 );
 
