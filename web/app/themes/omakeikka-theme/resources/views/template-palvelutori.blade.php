@@ -22,7 +22,7 @@
               {{ __('Tarvitsetko apua kotona, pihalla tai arjessa?', 'omakeikka-theme') }}
             </h1>
             <p class="marketplace-hero__sub lead mb-4">
-              {{ __('Julkaise tehtävä Omakeikan palvelutorille — kokeneet eläkeläiset vastaavat tunneissa. Sinä valitset tekijän, sovit yksityiskohdat ja saat avun.', 'omakeikka-theme') }}
+              {{ __('Valitse palvelu ja julkaise pyyntö. Tekijät vastaavat lähialueeltasi. Sinä valitset tekijän, sovit yksityiskohdat ja saat avun.', 'omakeikka-theme') }}
             </p>
             <div class="marketplace-hero__cta-row d-flex flex-column flex-sm-row gap-3 mb-3">
               <a href="{{ esc_url( $register_url ) }}" class="btn btn-primary btn-lg fw-semibold" data-cta="hero-primary">

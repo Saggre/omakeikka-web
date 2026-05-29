@@ -21,18 +21,28 @@
     </div>
   </header>
 
-  {{-- Intro: what is palvelutori --}}
+  {{-- Intro: copy is verbatim from the omakeikka app (resources/ts/Pages/Marketplace/Index.vue) --}}
   <section class="py-5">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-          <h2 class="h3 fw-bold mb-3">{{ __('Mikä on palvelutori?', 'omakeikka-theme') }}</h2>
-          <p class="lead text-muted mb-4">
-            {{ __('Omakeikan palvelutori on paikka, jossa kotitaloudet ja kokeneet eläkeläiset kohtaavat. Valitse palvelu ja julkaise pyyntö — tekijät vastaavat lähialueeltasi.', 'omakeikka-theme') }}
+        <div class="col-lg-8">
+          <p class="lead text-muted text-center mb-5">
+            {{ __('Selaa eläkeläisten tarjoamia palveluita, pyydä tarvitsemaasi apua tai jaa omaa osaamistasi vertaisillesi.', 'omakeikka-theme') }}
           </p>
-          <p class="text-muted mb-0">
-            {{ __('Tehtäviä tekevät Omakeikkaan rekisteröityneet eläkeläiset, joilla on monipuolista työ- ja elämänkokemusta. Tekijä toimii kevytyrittäjänä omaan lukuunsa, ja sovit hinnan ja yksityiskohdat suoraan hänen kanssaan. Palvelutorin käyttö on maksutonta.', 'omakeikka-theme') }}
-          </p>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h2 class="h4 fw-bold mb-2">{{ __('Tarvitsetko apua?', 'omakeikka-theme') }}</h2>
+              <p class="text-muted mb-0">
+                {{ __('Valitse palvelu ja julkaise pyyntö. Tekijät vastaavat lähialueeltasi.', 'omakeikka-theme') }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h2 class="h4 fw-bold mb-2">{{ __('Oletko tekijä?', 'omakeikka-theme') }}</h2>
+              <p class="text-muted mb-0">
+                {{ __('Tarjoa apuasi ja tienaa lisää.', 'omakeikka-theme') }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

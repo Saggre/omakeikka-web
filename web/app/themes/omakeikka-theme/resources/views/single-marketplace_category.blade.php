@@ -26,7 +26,7 @@
             <p class="marketplace-hero__sub lead text-white mt-3">{{ get_the_excerpt() }}</p>
           @else
             <p class="marketplace-hero__sub lead text-white mt-3">
-              {{ sprintf( __('Julkaise tehtävä palvelutorille — kokeneet eläkeläiset tarjoavat apuaan tunneissa. Sovi hinta ja yksityiskohdat suoraan tekijän kanssa.', 'omakeikka-theme') ) }}
+              {{ sprintf( __('Julkaise tehtävä palvelutorille: kokeneet eläkeläiset tarjoavat apuaan tunneissa. Sovi hinta ja yksityiskohdat suoraan tekijän kanssa.', 'omakeikka-theme') ) }}
             </p>
           @endif
           <ol class="marketplace-steps list-unstyled d-flex flex-column flex-sm-row gap-3 mt-4 mb-0">
