@@ -50,7 +50,7 @@
           <div class="occupation-hero__card card shadow-lg border-0 p-4">
             <h2 class="h5 mb-1">{{ sprintf(__('Etsitkö %s?', 'omakeikka-theme'), $cta_partitive) }}</h2>
             <p class="text-muted small mb-3">{{ __('Rekisteröidy työnantajana, selaa profiileja ja ota yhteyttä sopiviin tekijöihin.', 'omakeikka-theme') }}</p>
-            <a href="/rekisteroidy/" class="btn btn-primary w-100">
+            <a href="https://app.omakeikka.fi/register/employer" class="btn btn-primary w-100">
               {{ __('Rekisteröidy työnantajana', 'omakeikka-theme') }}
             </a>
             <hr class="my-3">
@@ -111,7 +111,7 @@
       <h2 class="mb-2 text-white">{{ sprintf(__('Aloita %s-haku tänään', 'omakeikka-theme'), $cta_singular) }}</h2>
       <p class="lead mb-4 text-white">{{ __('Rekisteröidy, selaa profiileja ja ota yhteyttä sopiviin tekijöihin.', 'omakeikka-theme') }}</p>
       <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
-        <a href="/rekisteroidy/" class="btn btn-primary btn-lg">
+        <a href="https://app.omakeikka.fi/register/employer" class="btn btn-primary btn-lg">
           {{ __('Rekisteröidy työnantajana', 'omakeikka-theme') }}
         </a>
       </div>

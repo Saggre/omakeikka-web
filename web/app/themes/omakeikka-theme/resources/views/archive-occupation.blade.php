@@ -11,7 +11,7 @@
         {{ __('Löydä töitä ammattiasi vastaavissa tehtävissä tai löydä oikeat tekijät omakeikasta.', 'omakeikka-theme') }}
       </p>
       <p class="text-muted mb-0">
-        {{ __('Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta: ', 'omakeikka-theme') }}<a href="/rekisteroidy/">{{ __('rekisteröidy ja selaa kaikkia profiileja', 'omakeikka-theme') }}</a>.
+        {{ __('Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta: ', 'omakeikka-theme') }}<a href="https://app.omakeikka.fi/register/employer">{{ __('rekisteröidy ja selaa kaikkia profiileja', 'omakeikka-theme') }}</a>.
       </p>
     </div>
   </header>
@@ -50,7 +50,7 @@
         {{ __('Tällä sivulla näkyy vain osa omakeikassa olevista ammattialoista. Rekisteröidy ja selaa kaikkia profiileja.', 'omakeikka-theme') }}
       </p>
       <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
-        <a href="/rekisteroidy/" class="btn btn-primary btn-lg">
+        <a href="https://app.omakeikka.fi/register/employer" class="btn btn-primary btn-lg">
           {{ __('Rekisteröidy työnantajana', 'omakeikka-theme') }}
         </a>
       </div>

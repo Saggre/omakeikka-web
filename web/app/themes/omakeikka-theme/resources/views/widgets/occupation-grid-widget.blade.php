@@ -2,7 +2,7 @@
   <div class="occupation-grid">
     <p class="text-muted mb-4 bg-white rounded">
       {!! wp_kses_post( sprintf(
-        __( 'Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta: <a href="/rekisteroidy/">rekisteröidy ja selaa kaikkia profiileja</a>.', 'omakeikka-theme' )
+        __( 'Alla on näyte omakeikassa olevista ammattialoista. Omakeikassa on rekisteröityneitä eläkeläisiä huomattavasti laajemmalta ammattikirjolta: <a href="https://app.omakeikka.fi/register/employer">rekisteröidy ja selaa kaikkia profiileja</a>.', 'omakeikka-theme' )
       ) ) !!}
     </p>
     <div class="row g-3">
