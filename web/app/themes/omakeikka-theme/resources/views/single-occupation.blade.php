@@ -84,8 +84,8 @@
         </div>
         <div class="col-12 col-md-4">
           <div class="occupation-trust__stat p-3 rounded border h-100">
-            <div class="fw-bold fs-5">{{ __('1 kk', 'omakeikka-theme') }}</div>
-            <div class="text-muted small">{{ __('ilmainen kokeilu työnantajille', 'omakeikka-theme') }}</div>
+            <div class="fw-bold fs-5">{{ __('Maksuton', 'omakeikka-theme') }}</div>
+            <div class="text-muted small">{{ __('rekisteröityminen eläkeläisille', 'omakeikka-theme') }}</div>
           </div>
         </div>
       </div>

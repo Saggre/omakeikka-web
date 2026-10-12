@@ -61,8 +61,10 @@ after('deploy:update_code', function () {
     upload('web/app/themes/omakeikka-theme/public/', '{{release_path}}/web/app/themes/omakeikka-theme/public/');
 });
 
+// No `wp acorn view:clear`: compiled views live in the per-release web/app/cache/acorn, so each
+// release starts empty. The server's WP-CLI phar also bundles Symfony Console 5, which makes
+// every `wp acorn` command fatal against Acorn's Illuminate\Console\OutputStyle.
 task('deploy:cache:clear', function () {
-    run('cd {{current_path}} && wp acorn view:clear');
     run('cd {{current_path}} && wp transient delete --all');
 });
 
