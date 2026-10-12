@@ -70,28 +70,22 @@
   <section class="occupation-trust py-4 border-bottom">
     <div class="container">
       <div class="row g-3 text-center">
-        <div class="col-6 col-md-3">
+        <div class="col-12 col-md-4">
           <div class="occupation-trust__stat p-3 rounded border h-100">
             <div class="fw-bold fs-5">{{ __('Tuhansia', 'omakeikka-theme') }}</div>
             <div class="text-muted small">{{ __('rekisteröityneitä eläkeläistä', 'omakeikka-theme') }}</div>
           </div>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-12 col-md-4">
           <div class="occupation-trust__stat p-3 rounded border h-100">
             <div class="fw-bold fs-5">294</div>
             <div class="text-muted small">{{ __('kuntaa', 'omakeikka-theme') }}</div>
           </div>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-12 col-md-4">
           <div class="occupation-trust__stat p-3 rounded border h-100">
             <div class="fw-bold fs-5">{{ __('1 kk', 'omakeikka-theme') }}</div>
             <div class="text-muted small">{{ __('ilmainen kokeilu työnantajille', 'omakeikka-theme') }}</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="occupation-trust__stat p-3 rounded border h-100">
-            <div class="fw-bold fs-5">{{ __('Maksuton', 'omakeikka-theme') }}</div>
-            <div class="text-muted small">{{ __('rekisteröityminen eläkeläisille', 'omakeikka-theme') }}</div>
           </div>
         </div>
       </div>
