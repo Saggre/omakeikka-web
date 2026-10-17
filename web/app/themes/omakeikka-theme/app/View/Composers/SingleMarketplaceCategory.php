@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use App\Services\HouseholdDeduction;
 use App\Services\MarketplaceCategoryQuery;
 use Roots\Acorn\View\Composer;
 
@@ -30,12 +31,16 @@ class SingleMarketplaceCategory extends Composer
 
         $title = html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' );
 
+        $slug = (string) get_post_field( 'post_name', $post_id );
+
         return array(
             'category_title'    => $title,
             'category_title_lc' => mb_strtolower( $title ),
             'category_icon'     => $icon,
             'category_group'    => $this->group( $group_key ),
             'app_create_url'    => MarketplaceCategoryQuery::appCreateUrl( $app_id ),
+            'form_url'          => MarketplaceCategoryQuery::formUrl( $group_key, $slug ),
+            'deduction_status'  => HouseholdDeduction::forCategory( $slug, $group_key ),
             'related'           => $this->relatedInGroup( $post_id, $group_key ),
         );
     }

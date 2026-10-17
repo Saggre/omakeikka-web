@@ -7,6 +7,31 @@ add_action( 'init', 'omakeikka_register_shortcodes' );
 function omakeikka_register_shortcodes(): void {
 	add_shortcode( 'query-message', 'omakeikka_form_query_message' );
 	add_shortcode( 'referer-message', 'omakeikka_form_referer_message' );
+	add_shortcode( 'omakeikka-kuka-voi-ostaa', 'omakeikka_who_can_buy_shortcode' );
+}
+
+/**
+ * Render the "who can buy" explainer.
+ *
+ * Exists as a shortcode because the front page is built in Elementor and
+ * cannot include a Blade partial. The editor drops Elementor's built-in
+ * Shortcode widget where the section belongs. Shortcodes run during
+ * the_content, long after Acorn has booted, so the view helper is available.
+ *
+ * @param array|string $atts
+ *
+ * @return string
+ */
+function omakeikka_who_can_buy_shortcode( $atts ): string {
+	$atts = shortcode_atts( array( 'compact' => '' ), (array) $atts, 'omakeikka-kuka-voi-ostaa' );
+
+	if ( ! function_exists( 'Roots\view' ) ) {
+		return '';
+	}
+
+	return Roots\view( 'partials.who-can-buy', array(
+		'compact' => ! empty( $atts['compact'] ),
+	) )->render();
 }
 
 /**

@@ -1,0 +1,49 @@
+// Household help request form.
+//
+// Appearance only. Spacing and columns stay as Bootstrap utilities in the
+// markup, per the house split. The form itself uses stock .form-control,
+// .form-select and .invalid-feedback, which _bootstrap.scss already compiles.
+
+.help-request {
+	&__form {
+		// Bootstrap's .form-check-input is 1em, roughly 15px, which is well
+		// under the 44px touch target this audience needs.
+		.form-check-input {
+			width: 1.5rem;
+			height: 1.5rem;
+			margin-top: 0.15rem;
+			margin-left: -2rem;
+		}
+
+		.form-check-label {
+			min-height: 44px;
+			display: flex;
+			align-items: center;
+		}
+
+		.form-check {
+			padding-left: 2rem;
+		}
+	}
+
+	// Honeypot. Off-screen rather than display:none, which some bots skip.
+	&__hp {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+}
+
+.who-can-buy {
+	&__card {
+		background: $white;
+		@extend .shadow-sm;
+	}
+}
+
+.deduction-notice {
+	border-left-width: 4px;
+	border-left-color: $primary;
+}

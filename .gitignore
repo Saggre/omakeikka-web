@@ -26,6 +26,7 @@ vendor/
 !web/app/mu-plugins/post-shortcodes.php
 !web/app/mu-plugins/occupation-cpt.php
 !web/app/mu-plugins/marketplace-category-cpt.php
+!web/app/mu-plugins/help-request-cpt.php
 
 # WordPress
 wp/

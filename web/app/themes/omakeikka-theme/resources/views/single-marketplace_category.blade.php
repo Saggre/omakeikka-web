@@ -49,7 +49,7 @@
           <div class="card shadow-lg border-0 p-4">
             <h2 class="h5 mb-1">{{ sprintf( __('Etsitkö tekijää tehtävään: %s?', 'omakeikka-theme'), $category_title_lc ) }}</h2>
             <p class="text-muted small mb-3">{{ __('Julkaise tehtävä palvelutorille ja saat vastauksia jo tunneissa. Kategoria on valmiina lomakkeella.', 'omakeikka-theme') }}</p>
-            <a href="{{ esc_url( $app_create_url ) }}" class="btn btn-primary w-100 fw-semibold" rel="noopener">
+            <a href="{{ esc_url( $form_url ?? $app_create_url ) }}" class="btn btn-primary w-100 fw-semibold" rel="noopener">
               {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
               <i class="bi bi-arrow-right ms-2"></i>
             </a>
@@ -59,6 +59,8 @@
               {{ __('Luo tili omakeikkaan', 'omakeikka-theme') }}
             </a>
           </div>
+
+          @include('partials.deduction-notice', ['status' => $deduction_status ?? 'no', 'compact' => true])
         </div>
 
       </div>
@@ -133,7 +135,7 @@
       <h2 class="h3 text-white mb-2">{{ sprintf( __('Aloita: %s', 'omakeikka-theme'), $category_title ) }}</h2>
       <p class="lead text-white mb-4">{{ __('Julkaise tehtävä ilmaiseksi ja saat vastauksia tunneissa.', 'omakeikka-theme') }}</p>
       <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
-        <a href="{{ esc_url( $app_create_url ) }}" class="btn btn-primary btn-lg fw-semibold" rel="noopener">
+        <a href="{{ esc_url( $form_url ?? $app_create_url ) }}" class="btn btn-primary btn-lg fw-semibold" rel="noopener">
           {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
           <i class="bi bi-arrow-right ms-2"></i>
         </a>

@@ -6,7 +6,7 @@
 
 @section('content')
   @php
-    $register_url = 'https://app.omakeikka.fi/register';
+    $register_url = \App\Services\MarketplaceCategoryQuery::formUrl();
     $groups       = $palvelutori_groups ?? array();
     $faq          = $palvelutori_faq ?? array();
   @endphp
@@ -77,6 +77,8 @@
       </div>
     </section>
 
+    @include('partials.who-can-buy')
+
     {{-- Category grid --}}
     <section id="palvelut" class="py-5">
       <div class="container">
@@ -93,7 +95,7 @@
               @foreach($groups as $group)
                 <div class="col-6 col-md-4 col-lg-3">
                   <a
-                    href="{{ esc_url( $group['url'] ) }}"
+                    href="{{ esc_url( $group['form_url'] ?? $group['url'] ) }}"
                     class="marketplace-grid__card text-decoration-none d-flex flex-column align-items-center text-center h-100"
                     data-cta="category-card"
                     data-category="{{ esc_attr( $group['slug'] ) }}"
