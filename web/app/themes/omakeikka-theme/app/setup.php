@@ -53,6 +53,7 @@ function omakeikka_is_marketplace_context(): bool {
         || is_post_type_archive( 'marketplace_category' )
         || is_tax( 'marketplace_group' )
         || is_page_template( 'template-palvelutori.blade.php' )
+        || is_page_template( 'template-help-request.blade.php' )
         || is_front_page();
 }
 
