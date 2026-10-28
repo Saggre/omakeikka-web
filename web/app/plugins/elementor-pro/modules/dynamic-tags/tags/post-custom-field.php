@@ -24,19 +24,15 @@ class Post_Custom_Field extends Tag {
 	}
 
 	public function get_categories() {
-		$categories = [
+		return [
 			Module::TEXT_CATEGORY,
 			Module::URL_CATEGORY,
 			Module::POST_META_CATEGORY,
 			Module::COLOR_CATEGORY,
 			Module::DATETIME_CATEGORY,
 			Module::MEDIA_CATEGORY,
+			Module::SVG_CATEGORY,
 		];
-
-		// TODO: Remove this in 3.37.0
-		$categories = Module::add_v4_svg_category( $categories );
-
-		return $categories;
 	}
 
 	public function get_panel_template_setting_key() {
@@ -119,5 +115,16 @@ class Post_Custom_Field extends Tag {
 		}
 
 		return $options;
+	}
+
+	public function get_editor_config() {
+		$config = parent::get_editor_config();
+
+		$config['meta'] = [
+			'origin' => 'elementor',
+			'required_license' => Module::LICENSE_FEATURE_ACF_NAME,
+		];
+
+		return $config;
 	}
 }

@@ -32,8 +32,8 @@ printf "Downloading the production database...\n"
 ssh "$REMOTE_HOST" "set -o pipefail; cd $REMOTE_PATH && wp db export - --single-transaction | gzip" >"$DUMP_FILE"
 
 printf "Loading the dump...\n"
-"${COMPOSE[@]}" exec -T db mariadb -uwp -pwppass -e 'DROP DATABASE IF EXISTS wordpress; CREATE DATABASE wordpress'
-gunzip -c "$DUMP_FILE" | "${COMPOSE[@]}" exec -T db mariadb -uwp -pwppass wordpress
+"${COMPOSE[@]}" exec -T db mariadb --skip-ssl -uwp -pwppass -e 'DROP DATABASE IF EXISTS wordpress; CREATE DATABASE wordpress'
+gunzip -c "$DUMP_FILE" | "${COMPOSE[@]}" exec -T db mariadb --skip-ssl -uwp -pwppass wordpress
 
 # Elementor stores URLs in JSON with escaped slashes, which a plain replace misses.
 printf "Replacing %s with %s...\n" "$REMOTE_URL" "$LOCAL_URL"
