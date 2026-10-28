@@ -60,6 +60,13 @@ docker compose run --rm wpcli <command>
 npm run wp:db:export    # Export DB to backups/YYYY-MM-DD-HHMMSS.sql
 ```
 
+### Production (ssh host alias `omakeikka-web`)
+
+```bash
+bin/fetchlogs.sh [glob]   # Stream LiteSpeed logs to stdout, read only (default: today's access_log)
+bin/updatedb.sh           # Replace the local DB with a production copy
+```
+
 ## Architecture
 
 ### Repository layout
