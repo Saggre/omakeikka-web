@@ -39,6 +39,7 @@ final class Modules_Manager {
 			'attributes',
 			'atomic-widgets',
 			'atomic-form',
+			'collection-loop',
 			'display-conditions',
 			'transitions',
 			'theme-builder',
@@ -84,6 +85,7 @@ final class Modules_Manager {
 			'variables',
 			'editor-one',
 			'interactions',
+			'mcp',
 		];
 
 		foreach ( $modules as $module_name ) {
