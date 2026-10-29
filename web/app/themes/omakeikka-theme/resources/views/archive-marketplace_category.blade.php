@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+  $form_url = \App\Services\MarketplaceCategoryQuery::formUrl();
+@endphp
+
 <div class="marketplace-archive">
 
   <header class="marketplace-archive__header marketplace-hero py-5">
@@ -13,7 +17,7 @@
         {{ __('Selaa eläkeläisten tarjoamia palveluita, pyydä tarvitsemaasi apua tai jaa omaa osaamistasi vertaisillesi.', 'omakeikka-theme') }}
       </p>
       <div class="mt-4">
-        <a href="https://app.omakeikka.fi/register" class="btn btn-primary btn-lg fw-semibold">
+        <a href="{{ esc_url( $form_url ) }}" class="btn btn-primary btn-lg fw-semibold">
           {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
           <i class="bi bi-arrow-right ms-2"></i>
         </a>
@@ -33,7 +37,7 @@
             <div class="col-md-6">
               <h2 class="h4 fw-bold mb-2">{{ __('Tarvitsetko apua?', 'omakeikka-theme') }}</h2>
               <p class="text-muted mb-0">
-                {{ __('Valitse palvelu ja julkaise pyyntö. Tekijät vastaavat lähialueeltasi.', 'omakeikka-theme') }}
+                {{ __('Valitse palvelu ja kerro, mitä tarvitset. Tekijät vastaavat lähialueeltasi.', 'omakeikka-theme') }}
               </p>
             </div>
             <div class="col-md-6">
@@ -47,6 +51,8 @@
       </div>
     </div>
   </section>
+
+  @include('partials.who-can-buy')
 
   {{-- How it works --}}
   <section class="py-5 bg-light border-top">
@@ -89,7 +95,16 @@
               </span>
             @endif
             <div>
-              <h2 class="h3 fw-bold mb-1">{{ $group['name'] }}</h2>
+              {{-- The group heading is the crawl path to /palvelut/ryhma/*.
+                   The palvelutori grid now routes to the request form, so
+                   without this link the group archives would be orphaned. --}}
+              <h2 class="h3 fw-bold mb-1">
+                @if(!empty($group['url']) && !is_tax('marketplace_group'))
+                  <a href="{{ esc_url( $group['url'] ) }}" class="text-decoration-none text-reset">{{ $group['name'] }}</a>
+                @else
+                  {{ $group['name'] }}
+                @endif
+              </h2>
               @if(!empty($group['count']))
                 <p class="text-muted small mb-0">
                   {{ sprintf( _n( '%d palvelu', '%d palvelua', $group['count'], 'omakeikka-theme' ), $group['count'] ) }}
@@ -126,7 +141,7 @@
     <div class="container">
       <h2 class="h3 mb-3">{{ __('Etkö löytänyt sopivaa palvelua?', 'omakeikka-theme') }}</h2>
       <p class="lead mb-4">{{ __('Julkaise oma tehtäväsi vapaasti. Tekijät vastaavat tunneissa.', 'omakeikka-theme') }}</p>
-      <a href="https://app.omakeikka.fi/register" class="btn btn-primary btn-lg fw-semibold">
+      <a href="{{ esc_url( $form_url ) }}" class="btn btn-primary btn-lg fw-semibold">
         {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
         <i class="bi bi-arrow-right ms-2"></i>
       </a>

@@ -212,3 +212,115 @@ npm run wp:db:export    # saves to backups/YYYY-MM-DD-HHMMSS.sql
 ```
 
 The `mariadb-dump` binary inside the container also needs `--skip-ssl` (same as `mariadb`). The wrapper lives at `.docker/wpcli/mariadb-dump` and is mounted into the container via `docker-compose.yml`.
+
+## help_request CPT and the household help request form
+
+Households cannot post tasks in the omakeikka app: `marketplace_requests.poster_employee_profile_id`
+is a non-nullable FK to `employee_profiles` and the routes sit behind an `employee` middleware. The
+public form on this site is the buyer entry point, and it stores to WordPress, not to the app.
+
+### Where things live
+
+All of it lives in the theme as container services. `app/Providers/HelpRequestServiceProvider.php`
+(registered from `ThemeServiceProvider`) is the only place that touches WordPress hooks.
+
+- `app/Services/HelpRequest/` — `PostType` (CPT and meta), `Repository` (all post and meta access),
+  `Form` (admin-post handler), `Submission` (readonly DTO), `Mailer`, `Admin` (list columns and
+  status box), `Privacy` (retention cron, GDPR export and erase), `Prefill` (starting title and
+  description per group), `Status` and `Budget` enums.
+- `app/Services/Municipalities.php` — reads `resources/data/municipalities_full.json`.
+- `app/Services/HouseholdDeduction.php` — kotitalousvähennys eligibility per group and category,
+  rendered by the `<x-deduction-notice>` component (`app/View/Components/DeductionNotice.php`).
+- `app/View/Composers/HelpRequestPage.php`, `resources/views/template-help-request.blade.php`,
+  `resources/views/partials/help-request-thanks.blade.php` (shown instead of the form after a submit),
+  `resources/views/partials/who-can-buy.blade.php`.
+
+Customer-facing Finnish copy avoids the word "avunpyyntö" and talks about finding a tekijä for a task
+or hiring a konkari. Admin screens and the team notification still say "avunpyyntö".
+
+### Translations
+
+Strings in this feature use English msgids in the `omakeikka-theme` domain, translated in
+`resources/lang/fi.po`. Older templates still use Finnish msgids, which pass through untranslated.
+`wp i18n make-pot` does not parse Blade, so add new msgids to `fi.po` by hand, then compile with
+`docker compose run --rm --user "$(id -u):$(id -g)" wpcli i18n make-mo web/app/themes/omakeikka-theme/resources/lang`
+and commit the `.mo` alongside the `.po`. Without `--user` the container cannot write the directory and
+reports "Created 0 files".
+
+### register_post_meta is a deliberate new pattern
+
+This is the only place in the repo that uses `register_post_meta()`. The older CPTs rely on
+`supports => custom-fields` plus bare `update_post_meta()`, which puts sanitisation at whichever
+call site remembers it. That is not acceptable for personal data, so every `_hr_*` key declares a
+`sanitize_callback` that runs on every write path, plus an `auth_callback`. Keys are underscore
+prefixed, which makes them protected meta: invisible to the Custom Fields UI and not settable via
+`$_POST['meta_input']`.
+
+`show_in_rest` is `false` on both the post type and every meta key. The other two CPTs use `true`;
+here it would expose submitter names, emails and phone numbers on `/wp-json/wp/v2/help_request`.
+
+### The Vue in-DOM compiler, and why the form needs v-pre
+
+`index.php` wraps every Blade template in `<div id="app">`, and `bud.config.ts` sets
+`app.vue.set('runtimeOnly', false)` while `app.ts` calls `createApp({}).mount('#app')` with no
+render function. Vue therefore compiles the whole rendered page as an in-DOM template on every page
+load. Any `{{ }}` in first-party text is a Vue expression.
+
+The help request form is the first place user-submitted text is echoed back into Blade, so it is the
+first place this matters. **`v-pre` on the form wrapper is required**, otherwise a visitor who types
+`{{7*7}}` into the description sees `49` when the form re-renders with their values.
+
+### No rewrite flush is needed
+
+The CPT is registered with `rewrite => false`, `public => false` and `query_var => false`, so it
+generates no rewrite rules. The form target is an ordinary WP Page. `deploy.php` never runs
+`wp rewrite flush`, so a design that needed one would be a deploy hazard.
+
+### Required manual steps
+
+1. **Create the form page** and assign the template. It is not created by code:
+   ```bash
+   wp post create --post_type=page --post_status=publish \
+     --post_title='Löydä tekijä tehtävään' --post_name=julkaise-avunpyynto --porcelain
+   wp post meta update <ID> _wp_page_template template-help-request.blade.php
+   ```
+   `MarketplaceCategoryQuery::helpRequestPageUrl()` finds it by that template meta and falls back to
+   the app URL until it exists.
+2. **Exclude the form page from LiteSpeed full-page caching** (Cache, Excludes). Otherwise the nonce
+   and the `?virhe=` error render get served to the wrong visitor. The nonce soft-fails as a safety
+   net, but the exclusion is the actual fix.
+3. **Set `HELP_REQUEST_EMAIL`** in `.env`, comma separated for more than one recipient. Falls back to
+   the admin email.
+4. **Configure wp-mail-smtp** against the real sending domain with SPF and DKIM on `omakeikka.fi`.
+   Until then `wp_mail` falls back to PHP `mail()` and lands in spam or vanishes. This is a launch
+   blocker, not a nice to have. Locally the PHP image has no sendmail, so use the installed
+   WP Mail Catcher or point wp-mail-smtp at `mailhog:1025`.
+5. **Add the "who can buy" section to the homepage** with Elementor's Shortcode widget:
+   `[omakeikka-kuka-voi-ostaa]`. The homepage is Elementor content, so Blade cannot include it there.
+6. **Update `/tietosuojaseloste/`** with the data categories, purpose, legal basis, recipients and
+   the retention schedule below, and re-run the Complianz privacy statement wizard.
+
+### Retention
+
+A daily `omakeikka_help_request_cleanup` cron, batched at 100 posts, with the schedule in the three
+`OMAKEIKKA_HELP_REQUEST_*_DAYS` constants: IP hash dropped at 30 days, name, email and phone dropped
+and the description anonymised at 12 months, whole record deleted at 24 months. Anonymise runs before
+delete so the funnel counts survive the personal data purge. Raw IPs are never stored, only
+`wp_hash()` of them.
+
+### Kotitalousvähennys copy
+
+`HouseholdDeduction` carries **no percentages, caps or euro amounts** by design. The rate depends on
+the tax year and on how the individual helper invoices, and the 2026 increase (HE 113/2026 vp) was
+still unratified when this was written. The site says the deduction may be available and links to
+vero.fi, which is true in any year.
+
+Eligibility is still gated, because saying the deduction may apply to excluded work is itself a
+false claim. `muutto` is excluded by name in vero.fi guidance, `kauppa` only qualifies as part of a
+larger service, `etaapu` fails the "work done in the dwelling" test, and `auto` is not work on the
+dwelling. Those groups are simply absent from the map. `DeductionEligibility::No` renders nothing at
+all rather than a negative claim.
+
+The mapping fails closed (`?? E::No`), so a thirteenth group added to
+`scripts/seed-marketplace-categories.php` never silently inherits a tax claim. `HouseholdDeduction::UPDATED`
+drives the visible date stamp; review it yearly.

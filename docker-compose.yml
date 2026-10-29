@@ -15,7 +15,7 @@ services:
       - db
     restart: unless-stopped
     command: >
-      sh -c "mkdir -p /var/www/html/web/app/cache/acorn && chown -R www-data:www-data /var/www/html/web/app/uploads /var/www/html/web/app/cache && docker-php-entrypoint php-fpm"
+      sh -c "mkdir -p /var/www/html/web/app/cache/acorn && touch /var/www/html/web/app/debug.log && chown -R www-data:www-data /var/www/html/web/app/uploads /var/www/html/web/app/cache /var/www/html/web/app/debug.log && docker-php-entrypoint php-fpm"
 
   nginx:
     image: nginx:1.25
@@ -47,6 +47,10 @@ services:
 
   composer:
     image: composer:2
+    # Runs as the host user so installed packages are not root owned on a Linux or WSL filesystem.
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    environment:
+      COMPOSER_HOME: /tmp/composer
     working_dir: /app
     volumes:
       - ./:/app
@@ -55,6 +59,10 @@ services:
 
   wpcli:
     image: wordpress:cli-2.12-php8.4
+    # Same uid as PHP-FPM's www-data, which owns uploads, cache and debug.log.
+    user: "33:33"
+    environment:
+      HOME: /tmp
     volumes:
       - ./:/var/www/html
       - ./.docker/wpcli/mariadb:/usr/local/bin/mariadb:ro

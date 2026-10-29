@@ -40,14 +40,25 @@ When you need a string the app doesn't already define, ask first or note the gap
 
 ## Palvelutori link targets
 
-The link target for a category card depends on context:
+**The principle: buyer intent stays on omakeikka.fi, seller intent goes to the app.**
 
-- Landing page (`/palvelutori/`) group cards: group taxonomy archive (`/palvelut/ryhma/{slug}/`) so visitors can preview the services in that group before committing
-- All-categories archive (`/palvelut/`) cards: single SEO page (`/palvelut/{slug}/`) so search traffic lands on indexable content
-- Single SEO page CTAs: the app's create page with `?category_id` pre-filled
-- Group taxonomy archive (`/palvelut/ryhma/{slug}/`) cards: same app deep link, since the visitor has already chosen a group and is ready to act
+The reason is structural, not cosmetic. In the omakeikka Laravel app, `marketplace_requests.poster_employee_profile_id` is a non-nullable FK to `employee_profiles`, and the whole `marketplace-requests` route group sits behind `auth + verified + onboarded + employee`. A household sent to `app.omakeikka.fi/marketplace-requests/create` registers, verifies, onboards, and is then refused for not being an employee. Linking a buyer there is a dead end, so buyers go to the WordPress help request form instead.
 
-This is intentional. Keep it consistent when adding new entry points.
+| Entry point | Target |
+|---|---|
+| Landing page (`/palvelutori/`) group cards | help request form, group pre-filled |
+| Homepage category grid widget cards | help request form, group pre-filled |
+| All-categories archive (`/palvelut/`) cards | single SEO page (`/palvelut/{slug}/`), unchanged, so search traffic lands on indexable content |
+| All-categories archive group headings | group taxonomy archive, this is the only crawl path left to `/palvelut/ryhma/*` |
+| Group taxonomy archive cards and CTAs | help request form, group and category pre-filled |
+| Single SEO page buyer CTAs | help request form, group and category pre-filled |
+| Single SEO page "Luo tili omakeikkaan" and "Rekisteröidy palveluun" | app register, unchanged, seller path |
+| `single-occupation.blade.php` "Luo oma profiili" | app register, unchanged, aimed at the professional |
+| App `/marketplace-requests/create` for guests and non-employees | help request form with only `?palvelu=` (the app has no groups), the group is derived from the category's `group_key` |
+
+Card hrefs come from `App\Services\MarketplaceCategoryQuery`, never hardcoded. `formUrl( $group, $category )` builds the form link and falls back to the app create URL when the form page does not exist yet, which matters because deploy order is code first, content second.
+
+**Adding a key to `groups()` or `mapCategory()` requires bumping the transient cache key in the same commit.** The cached arrays are read by key in three templates, so a stale pre-change array produces `Undefined array key` warnings for up to an hour. `deploy.php` runs `wp transient delete --all`, but code goes live before that task, so the bump is what actually closes the window.
 
 ## Deploy notes
 
