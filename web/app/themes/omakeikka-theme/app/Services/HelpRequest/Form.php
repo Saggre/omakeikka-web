@@ -2,6 +2,7 @@
 
 namespace App\Services\HelpRequest;
 
+use App\Services\Captcha;
 use App\Services\MarketplaceCategoryQuery;
 use App\Services\Municipalities;
 
@@ -26,6 +27,7 @@ final class Form
         private readonly Municipalities $municipalities,
         private readonly Repository $repository,
         private readonly Mailer $mailer,
+        private readonly Captcha $captcha,
     ) {}
 
     public function handle(): void {
@@ -37,7 +39,7 @@ final class Form
         }
 
         $submission = Submission::fromInput( $input );
-        $errors     = $this->validate( $submission, (string) ( $input[ self::NONCE ] ?? '' ) );
+        $errors     = $this->validate( $submission, (string) ( $input[ self::NONCE ] ?? '' ), (string) ( $input[ Captcha::FIELD ] ?? '' ) );
 
         if ( ! $errors && ! $this->withinRateLimit() ) {
             $errors['_form'] = __( 'The request could not be sent right now. Please try again shortly.', 'omakeikka-theme' );
@@ -79,13 +81,15 @@ final class Form
     /**
      * @return array<string, string> Field name to message, '_form' for the whole form.
      */
-    private function validate( Submission $submission, string $nonce ): array {
+    private function validate( Submission $submission, string $nonce, string $captcha ): array {
         $errors = array();
 
         // A stale nonce still returns the visitor's values, since a page left
         // open overnight produces one for a real person.
         if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), self::ACTION ) ) {
             $errors['_form'] = __( 'The form expired. Check your details and send again.', 'omakeikka-theme' );
+        } elseif ( ! $this->captcha->verify( $captcha ) ) {
+            $errors['_form'] = __( 'We could not verify that the form was sent by a person. Please send it again.', 'omakeikka-theme' );
         }
 
         // The service is a hidden field, so a mismatch is reported on the visible group select.

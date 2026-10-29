@@ -52,6 +52,7 @@
     "@mapbox/sphericalmercator": "^1.2.0",
     "@popperjs/core": "^2.11.8",
     "@svgdotjs/svg.js": "^3.2.0",
+    "altcha": "3.3.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "geolib": "^3.3.4",

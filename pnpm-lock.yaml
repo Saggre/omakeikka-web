@@ -19,6 +19,9 @@ importers:
       '@svgdotjs/svg.js':
         specifier: ^3.2.0
         version: 3.2.5
+      altcha:
+        specifier: 3.3.0
+        version: 3.3.0
       axios:
         specifier: ^1.4.0
         version: 1.14.0
@@ -1653,6 +1656,9 @@ packages:
   ajv@8.20.0:
     resolution: {integrity: sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==}
 
+  altcha@3.3.0:
+    resolution: {integrity: sha512-olIeb1A5K2wzbFSxV3qgeknygbdJt7qmzCfAZn704PWsE9iGrfc/oTw1FfiESjsvaJf8Uk6elJX8opKq5u7dTw==}
+
   ansi-escapes@6.2.1:
     resolution: {integrity: sha512-4nJ3yixlEthEJ9Rk4vPcdBRkZvQZlYyu8j4/Mqz5sgIkddmEnH2Yj2ZrnP9S3tQOvSNRUIgVNF/1yPpRAGNRig==}
     engines: {node: '>=14.16'}
@@ -2910,6 +2916,9 @@ packages:
 
   hash-sum@2.0.0:
     resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
+  hash-wasm@4.12.0:
+    resolution: {integrity: sha512-+/2B2rYLb48I/evdOIhP+K/DD2ca2fgBjp6O+GBEnCDk2e4rpeXIK8GvIyRPjTezgmWn9gmKwkQjjx6BtqDHVQ==}
 
   hashery@1.5.1:
     resolution: {integrity: sha512-iZyKG96/JwPz1N55vj2Ie2vXbhu440zfUfJvSwEqEbeLluk7NnapfGqa7LH0mOsnDxTF85Mx8/dyR6HfqcbmbQ==}
@@ -7913,6 +7922,10 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
+  altcha@3.3.0:
+    dependencies:
+      hash-wasm: 4.12.0
+
   ansi-escapes@6.2.1: {}
 
   ansi-html-community@0.0.8: {}
@@ -9353,6 +9366,8 @@ snapshots:
   hash-sum@1.0.2: {}
 
   hash-sum@2.0.0: {}
+
+  hash-wasm@4.12.0: {}
 
   hashery@1.5.1:
     dependencies:

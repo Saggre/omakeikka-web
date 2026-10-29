@@ -186,6 +186,8 @@
                   @endisset
                 </div>
 
+                <x-captcha />
+
                 <button type="submit" class="btn btn-primary btn-lg fw-semibold">{{ __( 'Find me a helper', 'omakeikka-theme' ) }}</button>
               </form>
 

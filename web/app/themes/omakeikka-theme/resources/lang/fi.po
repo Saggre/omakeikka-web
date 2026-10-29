@@ -293,6 +293,9 @@ msgstr "Kuvauksessa voi olla enintään kaksi linkkiä"
 msgid "The form expired. Check your details and send again."
 msgstr "Lomake vanheni. Tarkista tiedot ja lähetä uudelleen."
 
+msgid "We could not verify that the form was sent by a person. Please send it again."
+msgstr "Emme voineet varmistaa, että lomakkeen lähetti ihminen. Lähetä se uudelleen."
+
 msgid "The helper invoices the work through an invoicing service once it is done. You may be able to claim the household tax deduction for some work done at home."
 msgstr "Tekijä laskuttaa työn laskutuspalvelun kautta, kun se on tehty. Osasta kotona tehtävistä töistä voi saada kotitalousvähennyksen."
 
