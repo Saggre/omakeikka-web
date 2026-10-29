@@ -6,7 +6,7 @@
 
 @section('content')
   @php
-    $register_url = 'https://app.omakeikka.fi/register';
+    $register_url = \App\Services\MarketplaceCategoryQuery::formUrl();
     $groups       = $palvelutori_groups ?? array();
     $faq          = $palvelutori_faq ?? array();
   @endphp
@@ -22,7 +22,7 @@
               {{ __('Tarvitsetko apua kotona, pihalla tai arjessa?', 'omakeikka-theme') }}
             </h1>
             <p class="marketplace-hero__sub lead mb-4">
-              {{ __('Valitse palvelu ja julkaise pyyntö. Tekijät vastaavat lähialueeltasi. Sinä valitset tekijän, sovit yksityiskohdat ja saat avun.', 'omakeikka-theme') }}
+              {{ __('Valitse palvelu ja kerro, mitä tarvitset. Tekijät vastaavat lähialueeltasi. Sinä valitset tekijän, sovit yksityiskohdat ja saat avun.', 'omakeikka-theme') }}
             </p>
             <div class="marketplace-hero__cta-row d-flex flex-column flex-sm-row gap-3 mb-3">
               <a href="{{ esc_url( $register_url ) }}" class="btn btn-primary btn-lg fw-semibold" data-cta="hero-primary">
@@ -77,6 +77,8 @@
       </div>
     </section>
 
+    @include('partials.who-can-buy')
+
     {{-- Category grid --}}
     <section id="palvelut" class="py-5">
       <div class="container">
@@ -93,7 +95,7 @@
               @foreach($groups as $group)
                 <div class="col-6 col-md-4 col-lg-3">
                   <a
-                    href="{{ esc_url( $group['url'] ) }}"
+                    href="{{ esc_url( $group['form_url'] ) }}"
                     class="marketplace-grid__card text-decoration-none d-flex flex-column align-items-center text-center h-100"
                     data-cta="category-card"
                     data-category="{{ esc_attr( $group['slug'] ) }}"

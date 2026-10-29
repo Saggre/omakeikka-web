@@ -1,0 +1,124 @@
+// Household help request form.
+//
+// Appearance only. Spacing and columns stay as Bootstrap utilities in the
+// markup, per the house split. The form itself uses stock .form-control,
+// .form-select and .invalid-feedback, which _bootstrap.scss already compiles.
+
+.help-request {
+	&__form {
+		// Bootstrap's .form-check-input is 1em, roughly 15px, which is well
+		// under the 44px touch target this audience needs.
+		// The checkbox and its label share one centred row, with the 44px
+		// height as the touch target. The help and error text wrap below,
+		// indented to line up with the label.
+		.form-check {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			column-gap: 0.75rem;
+			padding-left: 0;
+		}
+
+		.form-check-input {
+			flex-shrink: 0;
+			width: 1.5rem;
+			height: 1.5rem;
+			margin: 0;
+		}
+
+		.form-check-label {
+			flex: 1;
+			min-height: 44px;
+			display: flex;
+			align-items: center;
+		}
+
+		.form-check .form-text,
+		.form-check .invalid-feedback {
+			flex-basis: 100%;
+			margin-left: 2.25rem;
+		}
+	}
+
+	// Steps in the "how it works" aside, numbered with a badge.
+	&-how {
+		background: $white;
+
+		&__steps {
+			counter-reset: step;
+
+			li {
+				counter-increment: step;
+				position: relative;
+				padding-left: 2.75rem;
+
+				& + li {
+					margin-top: 1rem;
+				}
+
+				&::before {
+					content: counter(step);
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 2rem;
+					height: 2rem;
+					border-radius: 50%;
+					background: $success;
+					color: $dark;
+					font-weight: 700;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				p {
+					margin: 0.25rem 0 0;
+				}
+			}
+		}
+	}
+
+	&-hero__points .bi {
+		color: shade-color($success, 50%);
+	}
+
+	// Honeypot. Off-screen rather than display:none, which some bots skip.
+	&__hp {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+}
+
+// Thank you view. Louder than an alert, so the submit leaves no doubt.
+.help-request-thanks {
+	&__panel {
+		background: tint-color($success, 80%);
+		border: 2px solid $success;
+	}
+
+	&__icon {
+		font-size: 4rem;
+		line-height: 1;
+		color: shade-color($success, 50%);
+	}
+
+	&__steps li + li {
+		margin-top: 0.5rem;
+	}
+}
+
+.who-can-buy {
+	&__card {
+		background: $white;
+		@extend .shadow-sm;
+	}
+}
+
+.deduction-notice {
+	border-left-width: 4px;
+	border-left-color: $primary;
+}

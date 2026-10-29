@@ -1,0 +1,390 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: omakeikka-theme\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: omakeikka-theme\n"
+
+msgid "100 to 300 euros"
+msgstr "100 euroa, 300 euroa"
+
+msgid "Agreed"
+msgstr "Sovittu"
+
+msgid "Anyone can hire a helper: households, families and individuals. You do not have to be a pensioner, and you do not need to create an account or become a member."
+msgstr "Tekijän voi palkata kuka tahansa: kotitaloudet, perheet ja yksityishenkilöt. Sinun ei tarvitse olla eläkeläinen, eikä sinun tarvitse luoda tiliä tai liittyä jäseneksi."
+
+msgid "Back to the front page"
+msgstr "Palaa etusivulle"
+
+msgid "Budget"
+msgstr "Budjetti"
+
+msgid "Budget (optional)"
+msgstr "Budjetti (valinnainen)"
+
+msgid "Cancelled"
+msgstr "Peruttu"
+
+msgid "Care"
+msgstr "Hoiva"
+
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "Check the email address"
+msgstr "Tarkista sähköpostiosoite"
+
+msgid "Choose"
+msgstr "Valitse"
+
+msgid "Choose a category"
+msgstr "Valitse kategoria"
+
+msgid "Choose a municipality"
+msgstr "Valitse paikkakunta"
+
+msgid "Cleaning and housekeeping"
+msgstr "Siivous ja kodinhoito"
+
+msgid "Computers and devices"
+msgstr "Tietokoneet ja laitteet"
+
+msgid "Consent given"
+msgstr "Suostumus annettu"
+
+msgid "Contact details"
+msgstr "Yhteystiedot"
+
+msgid "Anonymised request"
+msgstr "Anonymisoitu avunpyyntö"
+
+msgid "Content removed after the retention period."
+msgstr "Sisältö poistettu säilytysajan päätyttyä."
+
+msgid "Cooking"
+msgstr "Ruoanlaitto"
+
+msgid "Describe what you need"
+msgstr "Kuvaile tarpeesi"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Description is required"
+msgstr "Kuvaus vaaditaan"
+
+msgid "Done"
+msgstr "Valmis"
+
+msgid "Edit help request"
+msgstr "Muokkaa avunpyyntöä"
+
+msgid "Eligibility depends on the content of the work. Check your own situation with the Tax Administration before making decisions."
+msgstr "Vähennyskelpoisuus riippuu työn sisällöstä. Tarkista oma tilanteesi verottajalta ennen kuin teet päätöksiä."
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Email is required"
+msgstr "Sähköposti vaaditaan"
+
+msgid "Everyday tasks"
+msgstr "Arjen askareet"
+
+msgid "Fields marked with * are required."
+msgstr "Tähdellä * merkityt kentät ovat pakollisia."
+
+msgid "Fill in the form. You do not need an account."
+msgstr "Täytä lomake. Tiliä ei tarvita."
+
+msgid "Find a helper for another task"
+msgstr "Etsi tekijä toiseen tehtävään"
+
+msgid "Find me a helper"
+msgstr "Etsi minulle tekijä"
+
+msgid "Find someone for your task"
+msgstr "Löydä tekijä tehtävään"
+
+msgid "For example: Lawn mowing"
+msgstr "Esim. Ruohonleikkuu"
+
+msgid "Help request"
+msgstr "Avunpyyntö"
+
+msgid "Help request details"
+msgstr "Avunpyynnön tiedot"
+
+msgid "Help requests"
+msgstr "Avunpyynnöt"
+
+msgid "Helps the helper judge whether the task suits them."
+msgstr "Auttaa tekijää arvioimaan, sopiiko tehtävä hänelle."
+
+msgid "Hi %s,"
+msgstr "Hei %s,"
+
+msgid "Household tax deduction"
+msgstr "Kotitalousvähennys"
+
+msgid "How does payment work?"
+msgstr "Miten maksaminen toimii?"
+
+msgid "How it works"
+msgstr "Näin se toimii"
+
+msgid "How to hire a konkari"
+msgstr "Näin palkkaat konkarin"
+
+msgid "I am looking for someone to clean and keep house."
+msgstr "Etsin tekijää siivoukseen ja kodinhoitoon."
+
+msgid "I am looking for someone to cook or prepare meals."
+msgstr "Etsin tekijää ruoanlaittoon tai aterioiden valmistukseen."
+
+msgid "I am looking for someone to do a small renovation or repair."
+msgstr "Etsin tekijää pieneen remonttiin tai korjaustyöhön."
+
+msgid "I am looking for someone to do an installation at home."
+msgstr "Etsin tekijää asennustyöhön kotona."
+
+msgid "I am looking for someone to do everyday tasks."
+msgstr "Etsin tekijää arjen askareisiin."
+
+msgid "I am looking for someone to do shopping and run errands."
+msgstr "Etsin tekijää kaupassa käyntiin ja asiointiin."
+
+msgid "I am looking for someone to do yard work."
+msgstr "Etsin tekijää pihatöihin."
+
+msgid "I am looking for someone to give a ride or do a car task."
+msgstr "Etsin tekijää kyyditykseen tai autoon liittyvään työhön."
+
+msgid "I am looking for someone to help me move or carry things."
+msgstr "Etsin tekijää muuttoon tai tavaroiden kantamiseen."
+
+msgid "I am looking for someone to look after children, a pet or a loved one."
+msgstr "Etsin tekijää lasten, lemmikin tai läheisen hoitoon."
+
+msgid "I am looking for someone to work remotely, for example on writing or IT."
+msgstr "Etsin tekijää etätyöhön, esimerkiksi tekstien tai tietotekniikan pariin."
+
+msgid "I am looking for someone who knows computers, phones or other devices."
+msgstr "Etsin tekijää, joka osaa tietokoneet, puhelimet tai muut laitteet."
+
+msgid "I consent to the processing of my contact details"
+msgstr "Annan suostumukseni yhteystietojeni käsittelyyn"
+
+msgid "I do not know"
+msgstr "En osaa sanoa"
+
+msgid "I will tell you more about the details and a suitable time when we agree on the work."
+msgstr "Kerron lisää yksityiskohdista ja sopivasta ajankohdasta, kun sovimme työstä."
+
+msgid "In contact"
+msgstr "Yhteydessä"
+
+msgid "Information updated %s"
+msgstr "Tiedot päivitetty %s"
+
+msgid "Installation work"
+msgstr "Asennustyö"
+
+msgid "Is it safe?"
+msgstr "Onko se turvallista?"
+
+msgid "Moving and carrying"
+msgstr "Muutto ja kantaminen"
+
+msgid "Municipality"
+msgstr "Paikkakunta"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Name or nickname"
+msgstr "Nimi tai nimimerkki"
+
+msgid "Name or nickname is required"
+msgstr "Kerro nimi tai nimimerkki"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "New help request: %s"
+msgstr "Uusi avunpyyntö: %s"
+
+msgid "No account needed"
+msgstr "Et tarvitse tiliä"
+
+msgid "No confirmation email? Check your spam folder."
+msgstr "Etkö saanut vahvistusviestiä? Tarkista roskapostikansio."
+
+msgid "No help requests found"
+msgstr "Avunpyyntöjä ei löydy"
+
+msgid "Omakeikka goes through every task and passes it on to a suitable konkari. Your contact details are not published on the site, and you agree everything with the helper before the work starts."
+msgstr "Omakeikka käy jokaisen tehtävän läpi ja välittää sen sopivalle konkarille. Yhteystietojasi ei julkaista sivustolla, ja sovit kaikesta tekijän kanssa ennen kuin työ alkaa."
+
+msgid "Over 300 euros"
+msgstr "Yli 300 euroa"
+
+msgid "Phone"
+msgstr "Puhelin"
+
+msgid "Phone (optional)"
+msgstr "Puhelin (valinnainen)"
+
+msgid "Please check these fields"
+msgstr "Tarkista nämä kohdat"
+
+msgid "Read about the household tax deduction on vero.fi"
+msgstr "Lue kotitalousvähennyksestä vero.fi:ssä"
+
+msgid "Received"
+msgstr "Saapunut"
+
+msgid "Remote work"
+msgstr "Etätyö"
+
+msgid "Rides and car tasks"
+msgstr "Kyyditys ja autoasiat"
+
+msgid "Search help requests"
+msgstr "Etsi avunpyyntöjä"
+
+msgid "Service"
+msgstr "Palvelu"
+
+msgid "Service group"
+msgstr "Palveluryhmä"
+
+msgid "Shopping and errands"
+msgstr "Kauppa ja asiointi"
+
+msgid "Small renovation"
+msgstr "Pieni remontti"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Task number: %s"
+msgstr "Tehtävän numero: %s"
+
+msgid "Tell us what needs doing, what kind of space or tools are involved, and anything else to note."
+msgstr "Kerro mitä pitää tehdä, millaiset tilat tai välineet, ja muita huomioita."
+
+msgid "Tell us what you need"
+msgstr "Kerro, mitä tarvitset"
+
+msgid "Tell us what you need and we will find an experienced konkari for the task."
+msgstr "Kerro, mitä tarvitset, niin etsimme tehtävään kokeneen konkarin."
+
+msgid "Thank you! We will reply as soon as possible."
+msgstr "Kiitos! Vastaamme mahdollisimman pian."
+
+msgid "The description can contain at most two links"
+msgstr "Kuvauksessa voi olla enintään kaksi linkkiä"
+
+msgid "The form expired. Check your details and send again."
+msgstr "Lomake vanheni. Tarkista tiedot ja lähetä uudelleen."
+
+msgid "The helper invoices the work through an invoicing service once it is done. You may be able to claim the household tax deduction for some work done at home."
+msgstr "Tekijä laskuttaa työn laskutuspalvelun kautta, kun se on tehty. Osasta kotona tehtävistä töistä voi saada kotitalousvähennyksen."
+
+msgid "The request could not be saved. Please try again shortly."
+msgstr "Tehtävää ei voitu tallentaa. Yritä hetken kuluttua uudelleen."
+
+msgid "The request could not be sent right now. Please try again shortly."
+msgstr "Tehtävää ei voitu lähettää juuri nyt. Yritä hetken kuluttua uudelleen."
+
+msgid "The work is done by pensioners registered with Omakeikka, who have long work and life experience. The helper works on their own account as a light entrepreneur."
+msgstr "Työt tekevät Omakeikkaan rekisteröityneet eläkeläiset, joilla on pitkä työ- ja elämänkokemus. Tekijä toimii kevytyrittäjänä omaan lukuunsa."
+
+msgid "The work must be done in your own home or holiday home, or in the home of your or your spouse's parents or grandparents."
+msgstr "Työn on oltava tehty omassa kodissa tai vapaa-ajan asunnossa, tai omien tai puolison vanhempien tai isovanhempien kodissa."
+
+msgid "This is general information, not tax advice."
+msgstr "Tämä on yleistä tietoa, ei veroneuvontaa."
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Title is required"
+msgstr "Otsikko vaaditaan"
+
+msgid "To change or cancel your request, reply to this email."
+msgstr "Jos haluat muuttaa tehtävää tai perua sen, vastaa tähän viestiin."
+
+msgid "Under 100 euros"
+msgstr "Alle 100 euroa"
+
+msgid "We find a konkari"
+msgstr "Etsimme konkarin"
+
+msgid "We go through your task and look for a suitable konkari for it."
+msgstr "Käymme tehtäväsi läpi ja etsimme siihen sopivan konkarin."
+
+msgid "We have received your task"
+msgstr "Tehtäväsi on vastaanotettu"
+
+msgid "We process your details to pass your task on to helpers."
+msgstr "Käsittelemme tietojasi, jotta voimme välittää tehtäväsi tekijöille."
+
+msgid "We send a confirmation to this address."
+msgstr "Lähetämme vahvistuksen tähän osoitteeseen."
+
+msgid "We sent a confirmation to %s."
+msgstr "Lähetimme vahvistuksen osoitteeseen %s."
+
+msgid "We will contact you using the details you gave."
+msgstr "Otamme sinuun yhteyttä antamillasi yhteystiedoilla."
+
+msgid "What happens next?"
+msgstr "Mitä seuraavaksi?"
+
+msgid "What you sent:"
+msgstr "Lähettämäsi tiedot:"
+
+msgid "Who can hire a konkari?"
+msgstr "Kuka voi palkata konkarin?"
+
+msgid "Who does the work?"
+msgstr "Kuka työt tekee?"
+
+msgid "Yard work"
+msgstr "Pihatyöt"
+
+msgid "You agree the details"
+msgstr "Sovitte yksityiskohdista"
+
+msgid "You agree the price and the content of the work directly with the helper before the work starts."
+msgstr "Sovit hinnan ja työn sisällön suoraan tekijän kanssa ennen kuin työ alkaa."
+
+msgid "You agree the price and the content of the work directly with the helper. You pay only after the work is done: the helper invoices it as a light entrepreneur through an invoicing service."
+msgstr "Sovit hinnan ja työn sisällön suoraan tekijän kanssa. Maksat vasta, kun työ on tehty: tekijä laskuttaa sen kevytyrittäjänä laskutuspalvelun kautta."
+
+msgid "You may be able to claim the household tax deduction for this work. The deduction only covers the labour, not supplies, travel costs or the invoicing service fee."
+msgstr "Tästä työstä voi olla mahdollista saada kotitalousvähennys. Vähennyksen saa vain työn osuudesta, ei tarvikkeista, matkakuluista eikä laskutuspalvelun palkkiosta."
+
+msgid "You must consent to the processing of your details"
+msgstr "Sinun on annettava suostumus tietojesi käsittelyyn"
+
+msgid "You pay only after the work is done"
+msgstr "Maksat vasta, kun työ on tehty"
+
+msgid "You pay when the work is done"
+msgstr "Maksat, kun työ on tehty"
+
+msgid "Your contact details are not published"
+msgstr "Yhteystietojasi ei julkaista"
+
+msgid "Your task"
+msgstr "Tehtäväsi"
+
+msgid "Your task has been received (#%s)"
+msgstr "Tehtäväsi on vastaanotettu (#%s)"

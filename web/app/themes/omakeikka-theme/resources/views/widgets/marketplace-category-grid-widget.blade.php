@@ -4,7 +4,7 @@
       @foreach($groups as $group)
         <div class="col-6 col-md-4 col-lg-3">
           <a
-            href="{{ esc_url( $group['url'] ) }}"
+            href="{{ esc_url( $group['form_url'] ) }}"
             class="marketplace-grid__card text-decoration-none d-flex flex-column align-items-center text-center h-100"
           >
             @if(!empty($group['icon_class']))

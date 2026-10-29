@@ -53,6 +53,7 @@ function omakeikka_is_marketplace_context(): bool {
         || is_post_type_archive( 'marketplace_category' )
         || is_tax( 'marketplace_group' )
         || is_page_template( 'template-palvelutori.blade.php' )
+        || is_page_template( 'template-help-request.blade.php' )
         || is_front_page();
 }
 
@@ -71,6 +72,8 @@ add_action( 'enqueue_block_editor_assets', function () {
  * @return void
  */
 add_action( 'after_setup_theme', function () {
+    load_theme_textdomain( 'omakeikka-theme', get_theme_file_path( 'resources/lang' ) );
+
     /**
      * Enable features from the Soil plugin if activated.
      *

@@ -1,6 +1,6 @@
 <form role="search" method="get" class="search-form" action="{{ home_url('/') }}">
   <label>
-    <span class="sr-only">
+    <span class="visually-hidden">
       {{ _x('Search for:', 'label', 'sage') }}
     </span>
 
