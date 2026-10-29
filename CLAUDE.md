@@ -270,6 +270,31 @@ The help request form is the first place user-submitted text is echoed back into
 first place this matters. **`v-pre` on the form wrapper is required**, otherwise a visitor who types
 `{{7*7}}` into the description sees `49` when the form re-renders with their values.
 
+### ALTCHA spam protection
+
+Public forms use ALTCHA proof of work through `altcha-org/altcha` (theme Composer) and the `altcha`
+widget (theme npm), not a plugin. `App\Services\Captcha` creates and verifies challenges and rejects a
+replayed payload; `CaptchaServiceProvider` serves challenges at `/wp-json/omakeikka/v1/captcha` with
+`Cache-Control: no-store`. Add `<x-captcha />` inside a form's `v-pre` wrapper, otherwise Vue tries to
+resolve `<altcha-widget>` as a component, and call `Captcha::verify()` with the posted
+`Captcha::FIELD`. The HMAC secrets come from `wp_salt()`, so no env config is needed.
+
+Every rejected verification is logged as `omakeikka: captcha rejected, <reason>` (no payload,
+malformed payload, expired challenge, invalid signature, invalid solution, replayed payload), without
+the payload or the IP. Locally it lands in `web/app/debug.log`; production has `WP_DEBUG_LOG` off, so
+it goes to the PHP error log. Grep for that prefix to see spam volume and to tell bots apart from a
+broken widget, which shows up as a burst of `no payload` from real visitors.
+
+The widget is invisible and solves in the background from the first focus. Its own submit
+interception only exists in `auto="onsubmit"` mode, so the help request submit handler in `app.ts`
+holds back a submit that beats the solve, starts one if none is running (Safari does not focus a
+clicked button), and submits again on `verified` or `error`.
+
+`app.ts` imports the widget lazily, only when the page has an `<altcha-widget>`. `bud.config.ts`
+limits Sage's vendor group to initial chunks, otherwise webpack merges that lazy chunk into
+`bundle/vendor.js` and every page loads it. Keep the cost in `Captcha` low: this audience uses old
+phones, and the solve starts only when the visitor first focuses the form.
+
 ### No rewrite flush is needed
 
 The CPT is registered with `rewrite => false`, `public => false` and `query_var => false`, so it

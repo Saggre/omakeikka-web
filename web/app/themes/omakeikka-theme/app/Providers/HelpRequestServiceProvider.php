@@ -30,7 +30,9 @@ class HelpRequestServiceProvider extends ServiceProvider
         $post_type = $this->app->make( PostType::class );
         $privacy   = $this->app->make( Privacy::class );
         $admin     = $this->app->make( Admin::class );
-        $form      = $this->app->make( Form::class );
+
+        // Resolved on use, so only the form's own POST builds it and its ALTCHA dependencies.
+        $handle_form = fn() => $this->app->make( Form::class )->handle();
 
         add_action( 'init', array( $post_type, 'register' ) );
         add_action( 'init', array( $privacy, 'schedule' ) );
@@ -44,8 +46,8 @@ class HelpRequestServiceProvider extends ServiceProvider
         add_action( 'save_post_' . Repository::POST_TYPE, array( $admin, 'saveStatus' ) );
 
         // Without the logged in variant an admin testing the form gets a blank admin-post response.
-        add_action( 'admin_post_' . Form::ACTION, array( $form, 'handle' ) );
-        add_action( 'admin_post_nopriv_' . Form::ACTION, array( $form, 'handle' ) );
+        add_action( 'admin_post_' . Form::ACTION, $handle_form );
+        add_action( 'admin_post_nopriv_' . Form::ACTION, $handle_form );
 
         // The homepage is Elementor content, so the section is placed with the Shortcode widget.
         add_shortcode( 'omakeikka-kuka-voi-ostaa', fn() => view( 'partials.who-can-buy' )->render() );

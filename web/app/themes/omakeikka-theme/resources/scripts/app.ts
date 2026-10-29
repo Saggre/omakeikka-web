@@ -9,6 +9,12 @@ import OccupationScrollWidget from '@/Components/Widgets/OccupationScrollWidget.
  * Application entrypoint
  */
 domReady(async () => {
+  // The ALTCHA widget is loaded only on pages with a protected form. The
+  // translations register into the global the main bundle defines.
+  if (document.querySelector('altcha-widget')) {
+    import('altcha').then(() => import('altcha/i18n/fi')).catch(() => {});
+  }
+
   const app = createApp({});
 
   app.component('Badge', Badge);
@@ -17,16 +23,50 @@ domReady(async () => {
   app.mount('#app');
 });
 
+type AltchaWidget = HTMLElement & { getState(): string; verify(): Promise<unknown> };
+
+// Forms whose next submit goes through as is, after the widget settled.
+const releasedForms = new WeakSet<HTMLFormElement>();
+
 /**
  * Stops a double click from posting the same help request twice. Delegated
  * from document, since Vue replaces the in-DOM elements when it mounts.
+ *
+ * The invisible ALTCHA widget solves in the background from the first focus.
+ * A submit that beats it waits for the solve and then submits again. An error
+ * submits too, so the server shows its message instead of the button hanging.
  */
 document.addEventListener('submit', (event) => {
   const form = event.target as HTMLFormElement;
 
-  if (form.matches('.help-request__form')) {
-    form.querySelector('button[type="submit"]')?.setAttribute('disabled', '');
+  if (!form.matches('.help-request__form')) {
+    return;
   }
+
+  const widget = form.querySelector('altcha-widget') as AltchaWidget | null;
+
+  // An undefined element means the lazy chunk has not loaded, so the server reports the missing payload.
+  if (releasedForms.has(form)) {
+    releasedForms.delete(form);
+  } else if (widget && customElements.get('altcha-widget') && widget.getState() !== 'verified') {
+    event.preventDefault();
+
+    const onStateChange = ({ detail }: CustomEvent<{ state: string }>) => {
+      if (['verified', 'error'].includes(detail.state)) {
+        widget.removeEventListener('statechange', onStateChange as EventListener);
+        releasedForms.add(form);
+        form.requestSubmit();
+      }
+    };
+
+    widget.addEventListener('statechange', onStateChange as EventListener);
+
+    if (widget.getState() !== 'verifying') {
+      widget.verify();
+    }
+  }
+
+  form.querySelector('button[type="submit"]')?.setAttribute('disabled', '');
 });
 
 /**

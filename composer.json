@@ -36,7 +36,6 @@
     "roots/wordpress": "7.1.4",
     "roots/wp-config": "1.0.0",
     "vlucas/phpdotenv": "^5.5",
-    "wpackagist-plugin/altcha-spam-protection": "^1.26",
     "wpackagist-plugin/complianz-gdpr": "^7.4",
     "wpackagist-plugin/duplicate-post": "^4.5",
     "wpackagist-plugin/elementor": "^4.3",

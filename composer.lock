@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d7c1e61baa9af6d8f5713d2cabbc1ae",
+    "content-hash": "9a06f721fd0701eea22c99d54f8da371",
     "packages": [
         {
             "name": "composer/installers",
@@ -1568,24 +1568,6 @@
                 }
             ],
             "time": "2026-10-25T16:26:19+00:00"
-        },
-        {
-            "name": "wpackagist-plugin/altcha-spam-protection",
-            "version": "1.26.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/altcha-spam-protection/",
-                "reference": "tags/1.26.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/altcha-spam-protection.1.26.3.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/altcha-spam-protection/"
         },
         {
             "name": "wpackagist-plugin/complianz-gdpr",

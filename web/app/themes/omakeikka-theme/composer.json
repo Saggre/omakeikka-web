@@ -43,6 +43,7 @@
   },
   "require": {
     "php": "^8.0",
+    "altcha-org/altcha": "^2.3",
     "roots/acorn": "^3.2"
   },
   "require-dev": {

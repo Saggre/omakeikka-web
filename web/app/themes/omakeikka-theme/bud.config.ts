@@ -32,6 +32,14 @@ export default async (app: Bud) => {
   app.setPublicPath('/app/themes/omakeikka-theme/public/');
 
   /**
+   * Sage's production vendor group collects all chunks, which would pull lazy
+   * imports such as the ALTCHA widget into the vendor bundle every page loads.
+   */
+  app.hooks.on('build.optimization.splitChunks', (options) => (options && options.cacheGroups?.vendor
+    ? { ...options, cacheGroups: { ...options.cacheGroups, vendor: { ...options.cacheGroups.vendor, chunks: 'initial' } } }
+    : options));
+
+  /**
    * Development server settings
    *
    * @see {@link https://bud.js.org/docs/bud.setUrl}
