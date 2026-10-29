@@ -134,6 +134,10 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // Disable script concatenation
 Config::define('CONCATENATE_SCRIPTS', false);
 
+// Where household help request notifications are sent. Comma separated, so a
+// second person sees every lead. Falls back to the admin email when empty.
+Config::define('OMAKEIKKA_HELP_REQUEST_EMAIL', env('HELP_REQUEST_EMAIL') ?: '');
+
 /**
  * Debugging Settings
  */

@@ -27,15 +27,19 @@ class SingleMarketplaceCategory extends Composer
         $app_id    = (int) get_post_meta( $post_id, 'app_category_id', true );
         $icon      = (string) get_post_meta( $post_id, 'icon_class', true );
         $group_key = (string) get_post_meta( $post_id, 'group_key', true );
+        $slug      = (string) get_post_field( 'post_name', $post_id );
 
         $title = html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' );
 
         return array(
             'category_title'    => $title,
             'category_title_lc' => mb_strtolower( $title ),
+            'category_slug'     => $slug,
             'category_icon'     => $icon,
             'category_group'    => $this->group( $group_key ),
+            'group_key'         => $group_key,
             'app_create_url'    => MarketplaceCategoryQuery::appCreateUrl( $app_id ),
+            'form_url'          => MarketplaceCategoryQuery::formUrl( $group_key, $slug ),
             'related'           => $this->relatedInGroup( $post_id, $group_key ),
         );
     }

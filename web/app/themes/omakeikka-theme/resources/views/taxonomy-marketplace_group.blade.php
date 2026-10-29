@@ -2,7 +2,10 @@
 
 @section('content')
 
-@php $term = get_queried_object(); @endphp
+@php
+  $term     = get_queried_object();
+  $form_url = \App\Services\MarketplaceCategoryQuery::formUrl( $term->slug ?? '' );
+@endphp
 
 <div class="marketplace-archive">
 
@@ -20,7 +23,7 @@
         {{ __('Selaa tämän ryhmän palveluja tai julkaise oma tehtäväsi suoraan.', 'omakeikka-theme') }}
       </p>
       <div class="mt-4">
-        <a href="https://app.omakeikka.fi/register" class="btn btn-primary btn-lg fw-semibold">
+        <a href="{{ esc_url( $form_url ) }}" class="btn btn-primary btn-lg fw-semibold">
           {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
           <i class="bi bi-arrow-right ms-2"></i>
         </a>
@@ -32,12 +35,14 @@
     @foreach($marketplace_groups as $group)
       <section class="marketplace-archive__group py-5">
         <div class="container">
+          <x-deduction-notice :group="$group['slug']" />
+
           @if(!empty($group['categories']))
             <div class="row g-3">
               @foreach($group['categories'] as $category)
                 <div class="col-6 col-md-4 col-lg-3">
                   <a
-                    href="{{ esc_url( $category['app_create_url'] ) }}"
+                    href="{{ esc_url( $category['form_url'] ) }}"
                     class="marketplace-grid__card text-decoration-none d-flex flex-column align-items-center text-center h-100"
                     rel="noopener"
                   >
@@ -61,7 +66,7 @@
     <div class="container">
       <h2 class="h3 mb-3">{{ __('Tarvitsetko apua näissä tehtävissä?', 'omakeikka-theme') }}</h2>
       <p class="lead mb-4">{{ __('Julkaise oma tehtäväsi vapaasti. Tekijät vastaavat tunneissa.', 'omakeikka-theme') }}</p>
-      <a href="https://app.omakeikka.fi/register" class="btn btn-primary btn-lg fw-semibold">
+      <a href="{{ esc_url( $form_url ) }}" class="btn btn-primary btn-lg fw-semibold">
         {{ __('Julkaise tehtävä ilmaiseksi', 'omakeikka-theme') }}
         <i class="bi bi-arrow-right ms-2"></i>
       </a>
