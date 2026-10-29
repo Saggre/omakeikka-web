@@ -15,6 +15,7 @@ class ThemeServiceProvider extends SageServiceProvider
     {
         parent::register();
 
+        $this->app->register( CaptchaServiceProvider::class );
         $this->app->register( HelpRequestServiceProvider::class );
     }
 
