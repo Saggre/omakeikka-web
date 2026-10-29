@@ -82,7 +82,7 @@
                 </div>
               @endif
 
-              <form method="post" action="{{ esc_url( admin_url( 'admin-post.php' ) ) }}" class="help-request__form">
+              <form method="post" action="{{ esc_url( admin_url( 'admin-post.php' ) ) }}" class="help-request__form" data-analytics-form="help_request">
                 <input type="hidden" name="action" value="{{ \App\Services\HelpRequest\Form::ACTION }}">
                 <input type="hidden" name="category_slug" value="{{ $form_values['category_slug'] }}">
                 {!! wp_nonce_field( \App\Services\HelpRequest\Form::ACTION, \App\Services\HelpRequest\Form::NONCE, true, false ) !!}

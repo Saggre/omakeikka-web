@@ -19,6 +19,8 @@
           <h1 class="display-6 fw-bold mt-3 mb-3">{{ __( 'We have received your task', 'omakeikka-theme' ) }}</h1>
           @if ( ! empty( $form_values['reference'] ) )
             <p class="fs-5 mb-2">{{ sprintf( __( 'Task number: %s', 'omakeikka-theme' ), '#' . (int) $form_values['reference'] ) }}</p>
+            {{-- The reference exists only on the first view after a submit, so a refresh does not count the lead twice. --}}
+            <span hidden data-analytics-event="{{ wp_json_encode( array( 'name' => 'generate_lead', 'params' => array( 'form' => 'help_request', 'group' => $form_values['group_slug'] ?? '', 'category' => $form_values['category_slug'] ?? '' ) ) ) }}"></span>
           @endif
           @if ( ! empty( $form_values['email'] ) )
             <p class="mb-0">{{ sprintf( __( 'We sent a confirmation to %s.', 'omakeikka-theme' ), $form_values['email'] ) }}</p>

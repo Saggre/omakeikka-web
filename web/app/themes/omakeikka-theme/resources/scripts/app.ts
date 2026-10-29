@@ -4,11 +4,14 @@ import { createApp } from 'vue';
 import Badge from '@/Components/Badge.vue';
 import MunicipalityMapWidget from '@/Components/Widgets/MunicipalityMapWidget.vue';
 import OccupationScrollWidget from '@/Components/Widgets/OccupationScrollWidget.vue';
+import { trackRenderedEvents } from '@/analytics';
 
 /**
  * Application entrypoint
  */
 domReady(async () => {
+  trackRenderedEvents();
+
   // The ALTCHA widget is loaded only on pages with a protected form. The
   // translations register into the global the main bundle defines.
   if (document.querySelector('altcha-widget')) {

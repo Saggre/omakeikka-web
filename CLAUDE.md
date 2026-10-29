@@ -349,3 +349,26 @@ all rather than a negative claim.
 The mapping fails closed (`?? E::No`), so a thirteenth group added to
 `scripts/seed-marketplace-categories.php` never silently inherits a tax claim. `HouseholdDeduction::UPDATED`
 drives the visible date stamp; review it yearly.
+
+## Analytics (GA4 through Complianz)
+
+GA4 (`G-82BW5FY8JD`) is configured in Complianz, not in the theme. Complianz prints gtag.js and the
+`gtag('config')` call as blocked `type="text/plain" data-category="statistics"` scripts and runs them
+only after the visitor consents to statistics. `window.gtag` does not exist before that.
+
+This depends on the Complianz option `consent_for_anonymous_stats=yes`. With it set to `no`, Complianz
+treats GA with IP anonymisation as "anonymous" statistics, tags it `functional` and loads it before
+consent, which Finnish guidance does not allow. Do not enable Complianz's Google consent mode either:
+that is the advanced mode, which sends cookieless pings before consent.
+
+`resources/scripts/analytics.ts` holds events in memory and sends them with `gtag('event')` once
+Complianz fires `cmplz_enable_category` for `statistics`. Events never carry personal data.
+
+- `cta_click` from any `[data-cta]` element, with `cta`, `group` (the element's `data-category`) and `page_path`.
+- `form_start` on the first focus inside `form[data-analytics-form]`, once per page view.
+- Server rendered events from `[data-analytics-event]` JSON (`{"name": ..., "params": {...}}`). The help
+  request thank you page renders `generate_lead` only when the stash had a reference, so a refresh does
+  not count the lead twice.
+
+`set_cookies_on_root` must be on, locally because the port in `WP_HOME` makes Complianz derive the
+cookie path `:4489/`, and in production so the consent cookies can be shared with `app.omakeikka.fi`.
